@@ -52,7 +52,10 @@ class ChatController extends Controller
         // Process the API response
         $result = json_decode($response, true);
        
-
+        if (isset($result['error'])) {
+            $errorMessage = $result['error']['code'];
+            return response()->json(['completion' => $errorMessage]);
+        }
 
         // Get the generated completion from the response
         $completion = $result['choices'][0]['message']['content'];
