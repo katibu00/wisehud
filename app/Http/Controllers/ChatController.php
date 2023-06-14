@@ -31,7 +31,7 @@ class ChatController extends Controller
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_HTTPHEADER, [
             'Content-Type: application/json',
-            'Authorization: Bearer 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',
+            'Authorization: Bearer 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',
         ]);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonPayload);
 
