@@ -25,17 +25,17 @@ use App\Http\Controllers\ContactController;
 
 Route::get('/', function () {
    
-    if(auth()->check()){
-        if(Auth::user()->user_type == 'regular'){
-            return redirect()->route('regular.home');
-        }
-        if(Auth::user()->user_type == 'regular'){
-            return redirect()->route('regular.home');
-        }
-    }
+    // if(auth()->check()){
+    //     if(Auth::user()->user_type == 'regular'){
+    //         return redirect()->route('regular.home');
+    //     }
+    //     if(Auth::user()->user_type == 'regular'){
+    //         return redirect()->route('regular.home');
+    //     }
+    // }
    
-    return view('auth.login');
-});
+    return view('welcome');
+})->name('welcome');
 
 
 Route::get('/register', [RegisterController::class, 'index'])->name('register');
@@ -43,7 +43,7 @@ Route::post('/register', [RegisterController::class, 'register']);
 
 Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
-Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
 
 Route::group(['middleware' => ['auth', 'regular']], function () {
@@ -60,3 +60,6 @@ Route::post('/webhook',  [MonnifyController::class, 'getTransfers']);
 
 
 Route::post('/api/submit',  [ChatController::class, 'submit']);
+
+
+Route::get('/chat', [ChatController::class, 'index'])->name('chat.index');

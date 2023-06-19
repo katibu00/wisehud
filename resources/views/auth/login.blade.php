@@ -1,186 +1,146 @@
-<!doctype html>
-<html class="fixed">
-	<head>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Affan - PWA Mobile HTML Template">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="theme-color" content="#0134d4">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <!-- Title -->
+    <title>deMentor - Login</title>
+	<meta name="csrf-token" content="{{ csrf_token() }}">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
 
-		<!-- Basic -->
-		<meta charset="UTF-8">
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap" rel="stylesheet">
+    <!-- Favicon -->
+    <link rel="icon" href="img/core-img/favicon.ico">
+    <link rel="apple-touch-icon" href="img/icons/icon-96x96.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="img/icons/icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="167x167" href="img/icons/icon-167x167.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="img/icons/icon-180x180.png">
+    <!-- CSS Libraries -->
+    <link rel="stylesheet" href="/theme/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/theme/css/bootstrap-icons.css">
+    {{-- <link rel="stylesheet" href="/theme/css/tiny-slider.css">
+    <link rel="stylesheet" href="/theme/css/baguetteBox.min.css">
+    <link rel="stylesheet" href="/theme/css/rangeslider.css">
+    <link rel="stylesheet" href="/theme/css/vanilla-dataTables.min.css">
+    <link rel="stylesheet" href="/theme/css/apexcharts.css"> --}}
+    <!-- Core Stylesheet -->
+    <link rel="stylesheet" href="/theme/style.css">
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="/theme/manifest.json">
+  </head>
+  <body>
+    <!-- Preloader -->
+    <div id="preloader">
+      <div class="spinner-grow text-primary" role="status"><span class="visually-hidden">Loading...</span></div>
+    </div>
+    <!-- Internet Connection Status -->
+    <!-- # This code for showing internet connection status -->
+    <div class="internet-connection-status" id="internetStatus"></div>
+    <!-- Back Button -->
+    <div class="login-back-button"><a href="{{  route('welcome') }}">
+        <svg class="bi bi-arrow-left-short" width="32" height="32" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5z"></path>
+        </svg></a></div>
+    <!-- Login Wrapper Area -->
+    <div class="login-wrapper d-flex align-items-center justify-content-center">
+      <div class="custom-container">
+        <div class="text-center px-4"><img class="login-intro-img" src="img/bg-img/36.png" alt=""></div>
+        <!-- Register Form -->
+        <div class="register-form mt-4">
+          <h6 class="mb-3 text-center">Log in to continue to deMentor.</h6>
+          <form id="login-form">
+            <div class="form-group">
+              <input class="form-control" type="text" name="email_or_phone" placeholder="Enter Email/Phone Number">
+            </div>
+            <div class="form-group position-relative">
+              <input class="form-control" id="password" name="password" type="password" placeholder="Enter Password">
+              <div class="position-absolute" id="password-visibility"><i class="bi bi-eye"></i><i class="bi bi-eye-slash"></i></div>
+            </div>
+            <button class="btn btn-primary w-100" type="submit">Sign In</button>
+          </form>
+        </div>
+        <!-- Login Meta -->
+        <div class="login-meta-data text-center"><a class="stretched-link forgot-password d-block mt-3 mb-1" href="#">Forgot Password?</a>
+          <p class="mb-0">Didn't have an account? <a class="stretched-link" href="{{ route('register') }}">Register Now</a></p>
+        </div>
+      </div>
+    </div>
+    <!-- All JavaScript Files -->
+	<script src="/jquery-3.3.1.min.js"></script>
+    <script src="/theme/js/bootstrap.bundle.min.js"></script>
+    {{-- <script src="/theme/js/slideToggle.min.js"></script> --}}
+    <script src="/theme/js/internet-status.js"></script>
+    {{-- <script src="/theme/js/tiny-slider.js"></script>
+    <script src="/theme/js/baguetteBox.min.js"></script>
+    <script src="/theme/js/countdown.js"></script>
+    <script src="/theme/js/rangeslider.min.js"></script> --}}
+    {{-- <script src="/theme/js/vanilla-dataTables.min.js"></script> --}}
+    <script src="/theme/js/index.js"></script>
+    {{-- <script src="/theme/js/magic-grid.min.js"></script> --}}
+    {{-- <script src="/theme/js/dark-rtl.js"></script> --}}
+    <script src="/theme/js/active.js"></script>
+    <!-- PWA -->
+    <script src="/theme/js/pwa.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 
-		<meta name="keywords" content="Chatgpt" />
-		<meta name="description" content="">
-		<meta name="author" content="">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
-
-		<!-- Mobile Metas -->
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-
-		<!-- Web Fonts  -->
-		<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800|Shadows+Into+Light" rel="stylesheet" type="text/css">
-        <meta name="csrf-token" content="{{ csrf_token() }}">
-
-		<!-- Vendor CSS -->
-		<link rel="stylesheet" href="/vendor/bootstrap/css/bootstrap.css" />
-		<link rel="stylesheet" href="/vendor/animate/animate.compat.css">
-		<link rel="stylesheet" href="/vendor/font-awesome/css/all.min.css" />
-		<link rel="stylesheet" href="/vendor/boxicons/css/boxicons.min.css" />
-		<link rel="stylesheet" href="/vendor/magnific-popup/magnific-popup.css" />
-		<link rel="stylesheet" href="/vendor/bootstrap-datepicker/css/bootstrap-datepicker3.css" />
-
-		<!-- Theme CSS -->
-		<link rel="stylesheet" href="/css/theme.css" />
-
-		<!-- Skin CSS -->
-		<link rel="stylesheet" href="/css/skins/default.css" />
-
-		<!-- Theme Custom CSS -->
-		<link rel="stylesheet" href="/css/custom.css">
-
-		<!-- Head Libs -->
-		<script src="/vendor/modernizr/modernizr.js"></script>
-
-	</head>
-	<body>
-		<!-- start: page -->
-		<section class="body-sign">
-			<div class="center-sign">
-				{{-- <a href="/" class="logo float-left">
-					<img src="img/logo.png" height="70" alt="Porto Admin" />
-				</a> --}}
-
-				<div class="panel card-sign">
-					{{-- <div class="card-title-sign mt-3 text-end">
-						<h2 class="title text-uppercase font-weight-bold m-0"><i class="bx bx-user-circle me-1 text-6 position-relative top-5"></i> Sign In</h2>
-					</div> --}}
-					<div class="card-body">
-						<form id="login-form"> 
-							<div class="form-group mb-3">
-								<label>Phone Number/Email</label>
-								<div class="input-group">
-									<input name="email_or_phone" type="text" class="form-control form-control-lg" />
-									<span class="input-group-text">
-										<i class="bx bx-user text-4"></i>
-									</span>
-								</div>
-							</div>
-
-							<div class="form-group mb-3">
-								<div class="clearfix">
-									<label class="float-left">Password</label>
-									<a href="#" class="float-end">Lost Password?</a>
-								</div>
-								<div class="input-group">
-									<input name="password" type="password" class="form-control form-control-lg" />
-									<span class="input-group-text">
-										<i class="bx bx-lock text-4"></i>
-									</span>
-								</div>
-							</div>
-
-							<div class="row">
-								<div class="col-sm-8">
-									<div class="checkbox-custom checkbox-default">
-										<input id="RememberMe" name="rememberme" type="checkbox"/>
-										<label for="RememberMe">Remember Me</label>
-									</div>
-								</div>
-								<div class="col-sm-4 text-end">
-									<button type="submit" class="btn btn-primary mt-2">Sign In</button>
-								</div>
-							</div>
-
-							<span class="mt-3 mb-3 line-thru text-center text-uppercase">
-								<span>or</span>
-							</span>
-
-							<div class="mb-1 text-center">
-								<a class="btn btn-facebook mb-3 ms-1 me-1" href="#">Connect with <i class="fab fa-facebook-f"></i></a>
-								<a class="btn btn-twitter mb-3 ms-1 me-1" href="#">Connect with <i class="fab fa-twitter"></i></a>
-							</div>
-
-							<p class="text-center">Don't have an account yet? <a href="pages-signup.html">Sign Up!</a></p>
-
-						</form>
-					</div>
-				</div>
-
-				<p class="text-center text-muted mt-3 mb-3">&copy; Copyright 2021. All Rights Reserved.</p>
-			</div>
-		</section>
-		<!-- end: page -->
-
-		<!-- Vendor -->
-		<script src="/vendor/jquery/jquery.js"></script>
-		<script src="/vendor/jquery-browser-mobile/jquery.browser.mobile.js"></script>
-		<script src="/vendor/popper/umd/popper.min.js"></script>
-		<script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-		<script src="/vendor/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
-		<script src="/vendor/common/common.js"></script>
-		<script src="/vendor/nanoscroller/nanoscroller.js"></script>
-		<script src="/vendor/magnific-popup/jquery.magnific-popup.js"></script>
-		<script src="/vendor/jquery-placeholder/jquery.placeholder.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
-
-		<!-- Specific Page Vendor -->
-
-		<!-- Theme Base, Components and Settings -->
-		<script src="/js/theme.js"></script>
-
-		<!-- Theme Custom -->
-		<script src="/js/custom.js"></script>
-
-		<!-- Theme Initialization Files -->
-		<script src="/js/theme.init.js"></script>
-        <script>
-           
+	<script>
     
-    
-            $(document).ready(function() {
-                $('#login-form').submit(function(event) {
-                    event.preventDefault();
-                    var submitButton = $(this).find('button[type="submit"]');
-                    submitButton.prop('disabled', true).html(
-                        '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...'
-                    );
-    
-                    var formData = new FormData(this);
+		$(document).ready(function() {
+			$('#login-form').submit(function(event) {
+				event.preventDefault();
+				var submitButton = $(this).find('button[type="submit"]');
+				submitButton.prop('disabled', true).html(
+					'<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...'
+				);
 
-                    $.ajaxSetup({
-                        headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                        }
-                    });
-                    $.ajax({
-                        url: '/login',
-                        type: 'POST',
-                        data: formData,
-                        processData: false,
-                        contentType: false,
-                        success: function(response) {
-                            submitButton.prop('disabled', false).text('Login');
-    
-                            if (response.success) {
-                                toastr.success('Login successful. Redirecting to dashboard...');
-                                setTimeout(function() {
-                                    window.location.href = response.redirect_url;
-                                }, 200);
-                            } else {
-                                toastr.error('Invalid credentials.');
-                            }
-                        },
-                        error: function(xhr, status, error) {
-                            submitButton.prop('disabled', false).text('Login');
-    
-                            var response = xhr.responseJSON;
-                            if (response && response.errors && response.errors.login_error) {
-                                toastr.warning(response.errors.login_error[0]);
-                            } else if (response && response.message) {
-                                toastr.error(response.message);
-                            } else {
-                                toastr.error('An error occurred. Please try again.');
-                            }
-                        }
-                    });
-                });
-            });
-        </script>
-	</body>
+				var formData = new FormData(this);
+
+				$.ajaxSetup({
+					headers: {
+						'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+					}
+				});
+				$.ajax({
+					url: '/login',
+					type: 'POST',
+					data: formData,
+					processData: false,
+					contentType: false,
+					success: function(response) {
+						submitButton.prop('disabled', false).text('Login');
+
+						if (response.success) {
+							toastr.success('Login successful. Redirecting to dashboard...');
+							setTimeout(function() {
+								window.location.href = response.redirect_url;
+							}, 200);
+						} else {
+							toastr.danger('Invalid credentials.');
+						}
+					},
+					error: function(xhr, status, error) {
+						submitButton.prop('disabled', false).text('Login');
+
+						var response = xhr.responseJSON;
+						if (response && response.errors && response.errors.login_error) {
+							toastr.danger(response.errors.login_error[0]);
+						} else if (response && response.message) {
+							toastr.error(response.message);
+						} else {
+							toastr.error('An error occurred. Please try again.');
+						}
+					}
+				});
+			});
+		});
+	</script>
+  </body>
 </html>

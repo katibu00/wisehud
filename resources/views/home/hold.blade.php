@@ -245,3 +245,14 @@ $(document).ready(function() {
     });
 </script>
 @endsection
+
+
+<button class="btn active" id="bootstrap-tab" data-bs-toggle="tab" data-bs-target="#bootstrap" type="button" role="tab" aria-controls="bootstrap" aria-selected="true">RTL</button>
+<div class="tab-pane fade" id="pwa" role="tabpanel" aria-labelledby="pwa-tab">
+    <h6>PWA Ready</h6>
+    <p class="mb-0">Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
+  </div>
+  <div class="tab-pane fade" id="dark" role="tabpanel" aria-labelledby="dark-tab">
+    <h6>Dark Mode</h6>
+    <p class="mb-0">Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
+  </div>

@@ -1,52 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>deMentor - Your AI Assistant</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link rel="stylesheet" href="/styles.css" />
+
+</head>
+<body>
+    
+    <div id="chat_container">
+
+    </div>
+
+    <form>
+        <textarea name="prompt" rows="1" cols="1" placeholder="Ask me anything..."></textarea>
+        <button type="submit"><img src="/assets/send.svg" /></button>
+    </form>
+
+
+    <script src="/script.js"></script>
+</body>
+</html>
+
+
+
 @extends('layout.app')
-@section('PageTitle', 'Admin Home')
 @section('content')
 
-    <section class="welcome-section">
-        <div class="container">
-            <div class="rolw">
+<link rel="stylesheet" href="/styles.css" />
 
-                <div class="card">
-                    <div class="card-header">
-                        <h5>Recent Transactions</h5>
-                    </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>Date</th>
-                                        <th>Network</th>
-                                        <th>Amount</th>
-                                        <th>Status</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>2023-05-28</td>
-                                        <td>Network 1</td>
-                                        <td>1GB</td>
-                                        <td>Successful</td>
-                                    </tr>
-                                    <tr>
-                                        <td>2023-05-27</td>
-                                        <td>Network 2</td>
-                                        <td>500MB</td>
-                                        <td>Failed</td>
-                                    </tr>
-                                    <tr>
-                                        <td>2023-05-26</td>
-                                        <td>Network 3</td>
-                                        <td>2GB</td>
-                                        <td>Successful</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+
+<div class="main-container">
+   
+   
+    <div class="container mb-4">
+       
+        <div id="chat_container"></div>
+
+        <form class="mt-3"> 
+            <div class="input-group">
+                <input type="text" name="prompt" class="form-control" placeholder="Ask me anything...">
+                <div class="input-group-append">
+                    <button class="btn btn-default rounded" type="button" id="button-addon2">Submit</button>
                 </div>
             </div>
-        </div>
-    </section>
-
+        </form>
+       
+    </div>
+</div>
 @endsection
+
+@section('js')
+<script src="/script.js"></script>
+@endsection
+

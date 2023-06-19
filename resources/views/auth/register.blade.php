@@ -1,196 +1,98 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Affan - PWA Mobile HTML Template">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="theme-color" content="#0134d4">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <!-- Title -->
+    <title>deMentor - Register an Account</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap" rel="stylesheet">
+    <!-- Favicon -->
+    <link rel="icon" href="img/core-img/favicon.ico">
+    <link rel="apple-touch-icon" href="img/icons/icon-96x96.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="img/icons/icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="167x167" href="img/icons/icon-167x167.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="img/icons/icon-180x180.png">
+    <!-- CSS Libraries -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link rel="stylesheet" href="/theme/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/theme/css/bootstrap-icons.css">
+    <link rel="stylesheet" href="/theme/css/tiny-slider.css">
+    <link rel="stylesheet" href="/theme/css/baguetteBox.min.css">
+    <link rel="stylesheet" href="/theme/css/rangeslider.css">
+    <link rel="stylesheet" href="/theme/css/vanilla-dataTables.min.css">
+    <link rel="stylesheet" href="/theme/css/apexcharts.css">
+    <!-- Core Stylesheet -->
+    <link rel="stylesheet" href="/theme/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
-
-    <style>
-        body {
-            background-color: #f8f9fa;
-        }
-
-        .card {
-            border: none;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .card-header {
-            background-color: #007bff;
-            color: #fff;
-            text-align: center;
-            font-weight: bold;
-            padding: 10px;
-            border-top-left-radius: 10px;
-            border-top-right-radius: 10px;
-        }
-
-        .form-control {
-            border-radius: 5px;
-        }
-
-        .btn-primary {
-            background-color: #007bff;
-            border-color: #007bff;
-        }
-
-        .btn-primary:hover {
-            background-color: #0069d9;
-            border-color: #0062cc;
-        }
-
-        .navbar {
-            background-color: #343a40;
-        }
-
-        .navbar-nav .nav-link {
-            color: #fff;
-            margin: 0 10px;
-        }
-
-        .whatsapp-btn {
-            position: fixed;
-            bottom: 70px;
-            right: 20px;
-        }
-
-        .whatsapp-btn .btn {
-            width: 100%;
-            border-radius: 20px;
-            text-align: left;
-            background: linear-gradient(to right, #25D366, #128C7E);
-            color: #fff;
-        }
-
-        .form-group input::placeholder {
-            opacity: 0.7;
-        }
-
-        .form-group input[type="password"] {
-            padding-right: 30px;
-        }
-
-        .password-toggle {
-            position: absolute;
-            top: 50%;
-            right: 10px;
-            transform: translateY(-50%);
-            cursor: pointer;
-        }
-    </style>
-</head>
-
-<body>
-
-    <div class="container-fluid">
-        <div class="row justify-content-center align-items-center" style="height: 93vh;">
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="card-header">Register New Account</div>
-                    <div class="card-body">
-                        <form id="login-form">
-                            @csrf
-                            <div class="form-group">
-                                <label class="mb-1"><strong>Full Name</strong><span class="text-danger"> *</span></label>
-                                <input type="text" class="form-control" name="name" id="full-name" placeholder="Enter your full name">
-                                @error('full_name')
-                                    <span class="text-danger">{{ $message }}</span>
-                                @enderror
-                            </div>
-                            <div class="form-group">
-                                <label class="mb-1"><strong>Phone Number</strong><span class="text-danger"> *</span></label>
-                                <input type="text" class="form-control" name="phone" id="phone-number" placeholder="Enter your phone number">
-                                @error('phone')
-                                    <span class="text-danger">{{ $message }}</span>
-                                @enderror
-                            </div>
-                            <div class="form-group">
-                                <label class="mb-1"><strong>Email</strong> <span class="text-muted">(optional)</span></label>
-                                <input type="email" class="form-control" name="email" id="email" placeholder="Enter your email">
-                                @error('email')
-                                    <span class="text-danger">{{ $message }}</span>
-                                @enderror
-                            </div>
-                           
-                            <div class="form-group">
-                                <label class="mb-1"><strong>Referral Code</strong> <span class="text-muted">(optional)</span></label>
-                                <input type="text" class="form-control" name="referral_code" placeholder="Enter referral code">
-                            </div>
-                            <div class="form-group">
-                                <label class="mb-1"><strong>Password</strong><span class="text-danger"> *</span></label>
-                                <div class="input-group">
-                                    <input type="password" class="form-control" id="password" name="password"
-                                        placeholder="Enter your password">
-                                    <div class="input-group-append">
-                                        <span class="input-group-text password-toggle"
-                                            onclick="togglePasswordVisibility()">
-                                            <i class="fa fa-eye"></i>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <button type="submit" class="btn btn-primary btn-block">Register</button>
-                        </form>
-                        Don't Have an Account? <a href="{{ route('register') }}">Register Here</a>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <!-- Web App Manifest -->
+    {{-- <link rel="manifest" href="manifest.json"> --}}
+  </head>
+  <body>
+    <!-- Preloader -->
+    <div id="preloader">
+      <div class="spinner-grow text-primary" role="status"><span class="visually-hidden">Loading...</span></div>
     </div>
-
-    <nav class="navbar navbar-expand navbar-dark">
-        <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-                <a class="nav-link" href="#">Services</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">How to Fund</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Useful Codes</a>
-            </li>
-        </ul>
-    </nav>
-
-    <a href="https://api.whatsapp.com/send?phone=YOUR_PHONE_NUMBER" class="whatsapp-btn">
-        <button type="button" class="btn btn-success">
-            <i class="fab fa-whatsapp"></i> Contact Us on WhatsApp
-        </button>
-    </a>
-    <!-- Scripts here -->
+    <!-- Internet Connection Status -->
+    <!-- # This code for showing internet connection status -->
+    <div class="internet-connection-status" id="internetStatus"></div>
+    <!-- Login Wrapper Area -->
+    <div class="login-wrapper d-flex align-items-center justify-content-center">
+      <div class="custom-container">
+        {{-- <div class="text-center px-4"><img class="login-intro-img" src="img/bg-img/36.png" alt=""></div> --}}
+        <!-- Register Form -->
+        <div class="register-form mt-4">
+          <h6 class="mb-3 text-center">Register to continue to deMentor.</h6>
+          <form id="login-form">
+            <div class="form-group text-start mb-3">
+              <input class="form-control" type="text" name="name" placeholder="Enter your Name">
+            </div>
+            <div class="form-group text-start mb-3">
+              <input class="form-control" type="text" name="phone" placeholder="Enter your Phone Number">
+            </div>
+            <div class="form-group text-start mb-3">
+              <input class="form-control" type="email" name="email" placeholder="Enter your Email (optional)">
+            </div>
+            <div class="form-group text-start mb-3">
+              <input class="form-control" type="email" name="referral_code" placeholder="Enter Referral Code (optional)">
+            </div>
+            <div class="form-group text-start mb-3 position-relative">
+              <input class="form-control" id="psw-input" type="password" name="password" placeholder="New password">
+              <div class="position-absolute" id="password-visibility"><i class="bi bi-eye"></i><i class="bi bi-eye-slash"></i></div>
+            </div>
+            <div class="mb-3" id="pswmeter"></div>
+            {{-- <div class="form-check mb-3">
+              <input class="form-check-input" id="checkedCheckbox" type="checkbox" value="" checked>
+              <label class="form-check-label text-muted fw-normal" for="checkedCheckbox">I agree with the terms &amp; policy.</label>
+            </div> --}}
+            <button class="btn btn-primary w-100" type="submit">Sign Up</button>
+          </form>
+        </div>
+        <!-- Login Meta -->
+        <div class="login-meta-data text-center">
+          <p class="mt-3 mb-0">Already have an account? <a class="stretched-link" href="{{ route('login') }}">Login</a></p>
+        </div>
+      </div>
+    </div>
+    <!-- All JavaScript Files -->
+    <script src="/theme/js/bootstrap.bundle.min.js"></script>
+    <script src="/theme/js/internet-status.js"></script>
+    <script src="/theme/js/dark-rtl.js"></script>
+    <!-- Password Strenght -->
+    <script src="/theme/js/pswmeter.js"></script>
+    <script src="/theme/js/active.js"></script>
+    <!-- PWA -->
+    <script src="/theme/js/pwa.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
     <script>
-        function togglePasswordVisibility() {
-            var passwordInput = document.getElementById("password");
-            var passwordToggle = document.querySelector(".password-toggle");
-
-            if (passwordInput.type === "password") {
-                passwordInput.type = "text";
-                passwordToggle.innerHTML = '<i class="fa fa-eye-slash"></i>';
-            } else {
-                passwordInput.type = "password";
-                passwordToggle.innerHTML = '<i class="fa fa-eye"></i>';
-            }
-        }
-
-        var passwordInput = document.getElementById("password");
-        passwordInput.addEventListener("focus", function() {
-            var passwordToggle = document.querySelector(".password-toggle");
-            passwordToggle.style.opacity = "1";
-        });
-
-        passwordInput.addEventListener("blur", function() {
-            var passwordToggle = document.querySelector(".password-toggle");
-            passwordToggle.style.opacity = "0.7";
-        });
-
 
         $(document).ready(function() {
             $('#login-form').submit(function(event) {
@@ -201,6 +103,11 @@
                 );
 
                 var formData = new FormData(this);
+                $.ajaxSetup({
+					headers: {
+						'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+					}
+				});
                 $.ajax({
                     url: '/register',
                     type: 'POST',
@@ -235,9 +142,5 @@
             });
         });
     </script>
-
-
-
-</body>
-
+  </body>
 </html>

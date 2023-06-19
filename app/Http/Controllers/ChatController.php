@@ -10,7 +10,7 @@ class ChatController extends Controller
     {
         // Retrieve form data from the request
         $prompt = $request->input('prompt');
-
+       
         // Set the API endpoint URL
         $url = 'https://api.openai.com/v1/chat/completions';
 
@@ -31,7 +31,7 @@ class ChatController extends Controller
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_HTTPHEADER, [
             'Content-Type: application/json',
-            'Authorization: Bearer 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',
+            'Authorization: Bearer ',
         ]);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonPayload);
 
@@ -61,6 +61,12 @@ class ChatController extends Controller
         $completion = $result['choices'][0]['message']['content'];
 
         // Return the generated completion as a response
-        return response()->json(['completion' => $completion]);
+        return response()->json(['completion' => 'How are you today']);
+    }
+
+
+    public function index()
+    {
+        return view('chat.index');
     }
 }
