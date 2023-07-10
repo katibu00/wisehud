@@ -5,6 +5,7 @@ use App\Models\ReservedAccount;
 use App\Models\User;
 use App\Models\Wallet;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class RegisterController extends Controller
@@ -76,11 +77,10 @@ class RegisterController extends Controller
 
     private function getAccessToken()
     {
-        // Fetch API key and secret key from configuration or environment variables
-        $apiKey = "MK_TEST_U8HB3APP2Q";
-        $secretKey = "WG3ZRMG3VRXX9QJD25HJBXQY2FFPH363";
+        $monnifyKeys = DB::table('monnify_keys')->first();
+        $apiKey = $monnifyKeys->public_key;
+        $secretKey = $monnifyKeys->secret_key;
 
-        // Encoding Monnify API_KEY and SECRET KEY
         $encodedKey = base64_encode($apiKey . ':' . $secretKey);
 
         $curl = curl_init();
@@ -122,13 +122,14 @@ class RegisterController extends Controller
 
     private function createMonnifyReservedAccount(User $user, $accessToken)
     {
-        // Generate account reference and account name
         $accountReference = uniqid('abc', true);
         $accountName = $user->name;
 
-        // Other required parameters
+        $monnifyKeys = DB::table('monnify_keys')->first();
+        $contractCode = $monnifyKeys->contract_code;
+
         $currencyCode = 'NGN';
-        $contractCode = '5027608904';
+        $contractCode = $contractCode;
         $customerEmail = $user->email;
         $customerName = $user->name;
         $getAllAvailableBanks = true;

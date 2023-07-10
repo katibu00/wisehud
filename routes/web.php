@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\BuyDataController;
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\DataPlansController;
@@ -49,9 +51,13 @@ Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::group(['middleware' => ['auth', 'regular']], function () {
     Route::get('/user/home', [HomeController::class, 'regular'])->name('regular.home');
 });
+
 Route::group(['middleware' => ['auth', 'admin']], function () {
-    Route::get('/admin/home', [HomeController::class, 'admin'])->name('admin.home');
+    Route::get('/admin/home', [AdminController::class, 'index'])->name('admin.home');
 });
+
+
+// Route::get('/system-admin', [AdminController::class, 'index']);
 
 
 Route::post('/get-transfers',  [MonnifyController::class, 'getTransfers']);
@@ -63,3 +69,18 @@ Route::post('/api/submit',  [ChatController::class, 'submit']);
 
 
 Route::get('/chat', [ChatController::class, 'index'])->name('chat.index');
+
+
+
+Route::group(['prefix' => 'settings', 'middleware' => ['auth', 'admin']], function () {
+   
+    Route::get('/openai_key', [SettingsController::class, 'openaiKeys'])->name('openai_key');
+    Route::post('/openai_key', [SettingsController::class, 'saveOpenai']);
+
+    Route::get('/monnify_api_key', [SettingsController::class, 'monnifyKeys'])->name('monnify_api_key');
+    Route::post('/monnify_api_key', [SettingsController::class, 'saveMonnify']);
+
+    Route::get('/charges', [SettingsController::class, 'charges'])->name('charges');
+    Route::post('/charges', [SettingsController::class, 'saveCharges']);
+
+});
