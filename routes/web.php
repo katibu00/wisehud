@@ -2,17 +2,14 @@
 
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\SettingsController;
-use App\Http\Controllers\BuyDataController;
 use App\Http\Controllers\ChatController;
-use App\Http\Controllers\DataPlansController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MonnifyController;
 use App\Http\Controllers\RegisterController;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ContactController;
-
+use App\Http\Controllers\Admin\UsersController;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,14 +24,14 @@ use App\Http\Controllers\ContactController;
 
 Route::get('/', function () {
    
-    // if(auth()->check()){
-    //     if(Auth::user()->user_type == 'regular'){
-    //         return redirect()->route('regular.home');
-    //     }
-    //     if(Auth::user()->user_type == 'regular'){
-    //         return redirect()->route('regular.home');
-    //     }
-    // }
+    if(auth()->check()){
+        if(Auth::user()->user_type == 'regular'){
+            return redirect()->route('regular.home');
+        }
+        if(Auth::user()->user_type == 'admin'){
+            return redirect()->route('admin.home');
+        }
+    }
    
     return view('welcome');
 })->name('welcome');
@@ -57,7 +54,6 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
 });
 
 
-// Route::get('/system-admin', [AdminController::class, 'index']);
 
 
 Route::post('/get-transfers',  [MonnifyController::class, 'getTransfers']);
@@ -82,5 +78,14 @@ Route::group(['prefix' => 'settings', 'middleware' => ['auth', 'admin']], functi
 
     Route::get('/charges', [SettingsController::class, 'charges'])->name('charges');
     Route::post('/charges', [SettingsController::class, 'saveCharges']);
+
+});
+
+Route::group(['prefix' => 'users', 'middleware' => ['auth', 'admin']], function () {
+   
+    Route::get('/regular', [UsersController::class, 'regular'])->name('regular.index');
+    Route::post('/manual-funding', [UsersController::class, 'manualFunding'])->name('manual-funding');
+
+   
 
 });

@@ -59,8 +59,5 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function contacts(): HasMany
-    {
-        return $this->hasMany(Contact::class);
-    }
+   
 }

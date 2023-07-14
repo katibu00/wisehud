@@ -15,6 +15,7 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="">
     <meta property="og:image" content="">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <link rel="shortcut icon" href="/admin/media/favicons/favicon.png">
     <link rel="icon" type="image/png" sizes="192x192" href="/admin/media/favicons/favicon-192x192.png">
@@ -35,7 +36,7 @@
               <span class="smini-visible fw-bold tracking-wide fs-lg">
                 c<span class="text-primary">b</span>
               </span>
-              <a class="link-fx fw-bold tracking-wide mx-auto" href="index.html">
+              <a class="link-fx fw-bold tracking-wide mx-auto" href="#">
                 <span class="smini-hidden">
                   <i class="fa fa-fire text-primary"></i>
                   <span class="fs-4 text-dual">de</span><span class="fs-4 text-primary">Mentor</span>
@@ -226,8 +227,8 @@
     </div>
     
     <script src="/admin/js/codebase.app.min.js"></script>
-    <script src="/admin/js/plugins/chart.js/chart.umd.js"></script>
-    <script src="/admin/js/pages/be_pages_dashboard.min.js"></script>
+    {{-- <script src="/admin/js/plugins/chart.js/chart.umd.js"></script> --}}
+    {{-- <script src="/admin/js/pages/be_pages_dashboard.min.js"></script> --}}
     @yield('js')
   </body>
 </html>

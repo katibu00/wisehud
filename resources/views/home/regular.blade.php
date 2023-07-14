@@ -92,7 +92,7 @@
         <div class="card-body d-flex align-items-center direction-rtl">
           <div class="card-img-wrap"><i class="fa-solid fa-wallet fa-3x"></i></div>
           <div class="card-content">
-            <h5 class="mb-3">Your Wallet Balance: &#8358;{{ number_format(auth()->user()->wallet->balance) }}</h5><a class="btn btn-info btn-round" href="#">Add Funds</a>
+            <h5 class="mb-3">Your Wallet Balance: &#8358;{{ auth()->user()->wallet ? number_format(auth()->user()->wallet->balance, 2) : 'N/A' }}</h5><a class="btn btn-info btn-round" href="#">Add Funds</a>
           </div>
         </div>
       </div>
