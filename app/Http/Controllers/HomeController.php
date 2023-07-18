@@ -4,6 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\ReservedAccount;
+use App\Models\User;
+use App\Models\Wallet;
+use App\Models\WalletTransaction;
+use App\Models\MonnifyTransfer;
+use Carbon\Carbon;
 
 class HomeController extends Controller
 {
@@ -24,10 +29,32 @@ class HomeController extends Controller
         return view('home.regular', compact('accounts'));
     }
 
+
+
     public function admin()
     {
-        return view('home.admin');
+        // Get the required statistics
+        $totalUsers = User::count();
+        $totalWalletBalance = Wallet::sum('balance');
+        $totalFundings = MonnifyTransfer::sum('amount_paid');
+        
+        // Calculate the number of active users based on the last login time (within the last 30 days)
+        $activeUsers = User::where('created_at', '>=', Carbon::now()->subDays(30))->count();
+    
+        // Calculate the number of new users (registered within the last 30 days)
+        $newUsers = User::where('created_at', '>=', Carbon::now()->subDays(30))->count();
+    
+        // Pass the statistics to the view
+        return view('admin.home', compact('totalUsers', 'totalWalletBalance', 'totalFundings', 'activeUsers', 'newUsers'));
 
     }
+    
+    
+    
+    
+    
+    
+    
+
 
 }

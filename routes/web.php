@@ -84,8 +84,11 @@ Route::group(['prefix' => 'settings', 'middleware' => ['auth', 'admin']], functi
 Route::group(['prefix' => 'users', 'middleware' => ['auth', 'admin']], function () {
    
     Route::get('/regular', [UsersController::class, 'regular'])->name('regular.index');
+    Route::get('/admins', [UsersController::class, 'admins'])->name('admins.index');
     Route::post('/manual-funding', [UsersController::class, 'manualFunding'])->name('manual-funding');
-
-   
+    Route::post('/change-password', [UsersController::class, 'changePassword'])->name('change-password');
+    Route::delete('/{id}',  [UsersController::class, 'destroy'])->name('users.destroy');
 
 });
+
+

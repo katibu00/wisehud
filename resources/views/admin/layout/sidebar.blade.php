@@ -25,7 +25,7 @@ $user = auth()->user();
         </a>
       </li>
       <li class="list-inline-item">
-        <a class="link-fx text-dual" href="op_auth_signin.html">
+        <a class="link-fx text-dual" href="{{ route('logout') }}">
           <i class="fa fa-sign-out-alt"></i>
         </a>
       </li>
@@ -55,6 +55,12 @@ $user = auth()->user();
           <li class="nav-main-item">
             <a class="nav-main-link  {{ $route == 'regular.index' ? 'active' : '' }}" href="{{ route('regular.index') }}">
               <span class="nav-main-link-name">Regular</span>
+            </a>
+          </li>
+         
+          <li class="nav-main-item">
+            <a class="nav-main-link  {{ $route == 'admins.index' ? 'active' : '' }}" href="{{ route('admins.index') }}">
+              <span class="nav-main-link-name">Admins</span>
             </a>
           </li>
          

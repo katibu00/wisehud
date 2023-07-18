@@ -141,7 +141,7 @@
                   </a>
 
                   <div class="dropdown-divider"></div>
-                  <a class="dropdown-item d-flex align-items-center justify-content-between space-x-1" href="#">
+                  <a class="dropdown-item d-flex align-items-center justify-content-between space-x-1" href="{{ route('logout') }}">
                     <span>Sign Out</span>
                     <i class="fa fa-fw fa-sign-out-alt opacity-25"></i>
                   </a>
