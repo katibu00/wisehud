@@ -7,6 +7,7 @@ use App\Models\Wallet;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 
 class RegisterController extends Controller
 {
@@ -27,54 +28,56 @@ class RegisterController extends Controller
             'referral_code' => 'nullable|string',
             'password' => 'required|min:6',
         ]);
-        
-
 
         $fullName = $validatedData['name'];
         $firstName = explode(' ', $fullName)[0]; // Extract the first name
         $randomString = substr(str_shuffle('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'), 0, 4);
         $username = $firstName . $randomString;
 
-
-       // Create the user account
-        $user = User::create([
-            'name' => $validatedData['name'],
-            'phone' => $validatedData['phone'],
-            'email' => $validatedData['email'],
-            'referral_code' => $validatedData['referral_code'],
-            'username' => $username.$randomString,
-            'password' => Hash::make($validatedData['password']),
-        ]);
-
         try {
             // Get the Monnify access token
             $accessToken = $this->getAccessToken();
 
+            // Create a user instance to pass to createMonnifyReservedAccount function
+            $user = new User([
+                'name' => $validatedData['name'],
+                'phone' => $validatedData['phone'],
+                'email' => $validatedData['email'],
+                'referral_code' => $validatedData['referral_code'],
+                'username' => $username . $randomString,
+                'password' => Hash::make($validatedData['password']),
+            ]);
+
             // Create Monnify reserved account
-            $monnifyReservedAccount = $this->createMonnifyReservedAccount($user, $accessToken);
+            try {
+                $monnifyReservedAccount = $this->createMonnifyReservedAccount($user, $accessToken);
 
-            // Save Monnify reserved account details in the reserved_accounts table
-            ReservedAccount::create([
-                'user_id' => $user->id,
-                'customer_email' => $monnifyReservedAccount->customerEmail,
-                'customer_name' => $monnifyReservedAccount->customerName,
-                'accounts' => json_encode($monnifyReservedAccount->accounts), // Convert the object to JSON string
-            ]);
+                // Save Monnify reserved account details in the reserved_accounts table
+                ReservedAccount::create([
+                    'user_id' =>  $user->id,
+                    'customer_email' => $monnifyReservedAccount->customerEmail,
+                    'customer_name' => $monnifyReservedAccount->customerName,
+                    'accounts' => json_encode($monnifyReservedAccount->accounts),
+                ]);
 
-            // Create a wallet for the user
-            Wallet::create([
-                'user_id' => $user->id,
-                'balance' => 0, // Set initial balance to 0
-            ]);
+                // User account and Monnify account creation are successful
+                return response()->json(['message' => 'User account created successfully']);
+            } catch (\Exception $e) {
+                // Handle the exception, you can log the error or do other error handling here
+                // For example:
+                Log::error('Monnify API Error: ' . $e->getMessage());
+            }
 
-            // Return a success response
-            return response()->json(['message' => 'User registered successfully']);
+            // Create the user account
+            $user->save();
+
+            // Return a success response indicating that the Monnify account creation has failed
+            return response()->json(['message' => 'User account created successfully. Refresh your Monnify reserved account later.']);
         } catch (\Exception $e) {
             // Handle any exceptions or errors here
             return response()->json(['error' => $e->getMessage()], 500);
         }
     }
-
     private function getAccessToken()
     {
         $monnifyKeys = DB::table('monnify_keys')->first();
@@ -119,6 +122,9 @@ class RegisterController extends Controller
 
         return $monnifyResponse->responseBody->accessToken;
     }
+
+
+
 
     private function createMonnifyReservedAccount(User $user, $accessToken)
     {

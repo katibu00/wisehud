@@ -92,55 +92,63 @@
     <script src="/theme/js/pwa.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+   
     <script>
-
-        $(document).ready(function() {
-            $('#login-form').submit(function(event) {
-                event.preventDefault();
-                var submitButton = $(this).find('button[type="submit"]');
-                submitButton.prop('disabled', true).html(
-                    '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...'
-                );
-
-                var formData = new FormData(this);
-                $.ajaxSetup({
-					headers: {
-						'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-					}
-				});
-                $.ajax({
-                    url: '/register',
-                    type: 'POST',
-                    data: formData,
-                    processData: false,
-                    contentType: false,
-                    success: function(response) {
-                        submitButton.prop('disabled', false).text('Login');
-
-                        if (response.success) {
-                            toastr.success('Login successful. Redirecting to dashboard...');
-                            setTimeout(function() {
-                                window.location.href = response.redirect_url;
-                            }, 200);
-                        } else {
-                            toastr.error('Invalid credentials.');
-                        }
-                    },
-                    error: function(xhr, status, error) {
-                        submitButton.prop('disabled', false).text('Login');
-
-                        var response = xhr.responseJSON;
-                        if (response && response.errors && response.errors.login_error) {
-                            toastr.warning(response.errors.login_error[0]);
-                        } else if (response && response.message) {
-                            toastr.error(response.message);
-                        } else {
-                            toastr.error('An error occurred. Please try again.');
-                        }
-                    }
-                });
-            });
-        });
-    </script>
+      $(document).ready(function() {
+          $('#login-form').submit(function(event) {
+              event.preventDefault();
+              var submitButton = $(this).find('button[type="submit"]');
+              submitButton.prop('disabled', true).html(
+                  '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...'
+              );
+  
+              var formData = new FormData(this);
+  
+              $.ajaxSetup({
+                  headers: {
+                      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                  }
+              });
+              $.ajax({
+                  url: '/register',
+                  type: 'POST',
+                  data: formData,
+                  processData: false,
+                  contentType: false,
+                  success: function(response) {
+                      submitButton.prop('disabled', false).text('Login');
+  
+                      if (response.message) {
+                          toastr.success(response.message+' Redirecting to Login...');
+                          setTimeout(function() {
+                            window.location.href = '/login';
+                          }, 200);
+                      }
+  
+                      // Optionally, redirect to the dashboard after showing the success message
+                      if (response.success) {
+                          toastr.success('Login successful. Redirecting to Login...');
+                          setTimeout(function() {
+                              window.location.href = '/login';
+                          }, 200);
+                      }
+                  },
+                  error: function(xhr, status, error) {
+                      submitButton.prop('disabled', false).text('Login');
+  
+                      var response = xhr.responseJSON;
+                      if (response && response.errors && response.errors.login_error) {
+                          toastr.warning(response.errors.login_error[0]);
+                      } else if (response && response.message) {
+                          toastr.error(response.message);
+                      } else {
+                          toastr.error('An error occurred. Please try again.');
+                      }
+                  }
+              });
+          });
+      });
+  </script>
+  
   </body>
 </html>
