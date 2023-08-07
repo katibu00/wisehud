@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\Wallet;
 use App\Models\WalletTransaction;
 use App\Models\MonnifyTransfer;
+use App\Models\PopUp;
 use Carbon\Carbon;
 
 class HomeController extends Controller
@@ -25,8 +26,10 @@ class HomeController extends Controller
     }
 
 
+      $popUp = PopUp::where('switch', 'on')->first();
 
-        return view('home.regular', compact('accounts'));
+    return view('home.regular', compact('accounts', 'popUp'));
+
     }
 
 

@@ -61,10 +61,10 @@ Route::post('/get-transfers',  [MonnifyController::class, 'getTransfers']);
 Route::post('/webhook',  [MonnifyController::class, 'getTransfers']);
 
 
-Route::post('/api/submit',  [ChatController::class, 'submit']);
+Route::post('/api/submit',  [ChatController::class, 'submit'])->middleware('auth');
 
 
-Route::get('/chat', [ChatController::class, 'index'])->name('chat.index');
+Route::get('/chat', [ChatController::class, 'index'])->name('chat.index')->middleware('auth');
 
 
 
@@ -79,6 +79,11 @@ Route::group(['prefix' => 'settings', 'middleware' => ['auth', 'admin']], functi
     Route::get('/charges', [SettingsController::class, 'charges'])->name('charges');
     Route::post('/charges', [SettingsController::class, 'saveCharges']);
 
+
+    Route::get('/pop_up_notification', [SettingsController::class, 'popup'])->name('pop_up_notification');
+    Route::post('/pop_up_notification', [SettingsController::class, 'savePopup']);
+
+
 });
 
 Route::group(['prefix' => 'users', 'middleware' => ['auth', 'admin']], function () {
@@ -88,6 +93,9 @@ Route::group(['prefix' => 'users', 'middleware' => ['auth', 'admin']], function 
     Route::post('/manual-funding', [UsersController::class, 'manualFunding'])->name('manual-funding');
     Route::post('/change-password', [UsersController::class, 'changePassword'])->name('change-password');
     Route::delete('/{id}',  [UsersController::class, 'destroy'])->name('users.destroy');
+
+    Route::post('/admin/submit',  [UsersController::class, 'storeAdmin'])->name('admin.store');
+
 
 });
 

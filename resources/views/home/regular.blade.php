@@ -72,13 +72,21 @@
             <div class="tab-content rounded-lg p-3 shadow-sm" id="affanTabs1Content">
              
               @if(is_array($accounts) && count($accounts) > 0)
-                @foreach($accounts as $key => $account)
-                <div class="tab-pane fade {{ $loop->first ? 'show active': '' }}" id="key{{ $key }}" role="tabpanel" aria-labelledby="key{{ $key }}-tab">
-                  <h6>{{ $account['accountNumber'] }}</h6>
-                  <p class="mb-0">{{ $account['accountName'] }}</p>
-                </div>
-                @endforeach
-              @endif
+              @foreach($accounts as $key => $account)
+              <div class="tab-pane fade {{ $loop->first ? 'show active': '' }}" id="key{{ $key }}" role="tabpanel" aria-labelledby="key{{ $key }}-tab">
+                  <div class="d-flex align-items-center">
+                      <h6 class="mr-2"><span class="font-weight-bold">Acc. No.:</span></h6>
+                      <p class="mb-0">{{ $account['accountNumber'] }}</p>
+                      <button class="btn btn-link btn-sm ml-2" onclick="copyToClipboard('{{ $account['accountNumber'] }}')">
+                          <i class="fas fa-copy"></i>
+                      </button>
+                  </div>
+                  <p class="mb-0"><span class="font-weight-bold">Acc. Name:</span> {{ $account['accountName'] }}</p>
+              </div>
+              @endforeach
+          @endif
+          
+          
 
             </div>
           </div>
@@ -103,4 +111,49 @@
     <div class="pb-3"></div>
   </div>
   
+ 
+  
+@endsection
+
+@section('js')
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.all.min.js"></script>
+
+@if($popUp)
+    <script>
+        $(document).ready(function() {
+            Swal.fire({
+                icon: 'info',
+                title: 'Notification',
+                html: '{{ $popUp->body }}',
+                confirmButtonText: 'Close',
+                allowOutsideClick: false,
+            });
+        });
+    </script>
+@endif
+
+<script>
+  function copyToClipboard(text) {
+    const input = document.createElement('input');
+    input.setAttribute('value', text);
+    document.body.appendChild(input);
+    input.select();
+    document.execCommand('copy');
+    document.body.removeChild(input);
+
+    // Show a success message using SweetAlert
+    Swal.fire({
+      icon: 'success',
+      title: 'Copied!',
+      text: 'Account number copied to clipboard.',
+      timer: 2000, // Show the alert for 2 seconds
+      timerProgressBar: true,
+    });
+  }
+</script>
+
+
 @endsection

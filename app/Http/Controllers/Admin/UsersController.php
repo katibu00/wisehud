@@ -85,4 +85,26 @@ class UsersController extends Controller
         return response()->json(['message' => 'User deleted successfully']);
     }
 
+    public function storeAdmin(Request $request)
+    {
+        $request->validate([
+            'adminName' => 'required|string|max:255',
+            'adminEmail' => 'required|email|unique:users,email',
+            'adminPassword' => 'required|min:8',
+            'adminPhone' => 'required|string|max:20',
+        ]);
+
+        $admin = new User();
+        $admin->name = $request->input('adminName');
+        $admin->email = $request->input('adminEmail');
+        $admin->password = Hash::make($request->input('adminPassword'));
+        $admin->phone = $request->input('adminPhone');
+        $admin->user_type = 'admin';
+        $admin->username = 'admin';
+
+        $admin->save();
+
+        return redirect()->route('admins.index')->with('success', 'New admin added successfully.');
+    }
+
 }

@@ -92,6 +92,11 @@ $user = auth()->user();
               <span class="nav-main-link-name">Billing and Bonuses</span>
             </a>
           </li>
+          <li class="nav-main-item">
+            <a class="nav-main-link  {{ $route == 'pop_up_notification' ? 'active' : '' }}" href="{{ route('pop_up_notification') }}">
+              <span class="nav-main-link-name">Pop Up Notification</span>
+            </a>
+          </li>
 
         
         </ul>

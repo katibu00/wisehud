@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Charges;
 use App\Models\MonnifyKey;
 use App\Models\OpenAIKey;
+use App\Models\PopUp;
 use Illuminate\Http\Request;
 
 class SettingsController extends Controller
@@ -27,6 +28,38 @@ class SettingsController extends Controller
         $charges = Charges::first();
         return view('admin.settings.charges', compact('charges'));
     }
+    public function popup()
+    {
+        $popUp = PopUp::first();
+        return view('admin.settings.popup', compact('popUp'));
+    }
+
+
+    public function savePopup(Request $request)
+    {
+        $request->validate([
+            'notificationSwitch' => 'nullable|in:on,off',
+            'notificationBody' => 'required_if:notificationSwitch,on',
+        ]);
+    
+        $popUp = PopUp::first();
+        if (!$popUp) {
+            $popUp = new PopUp();
+        }
+    
+        // Set the value of switch as "off" if it is not sent in the request
+        $popUp->switch = $request->has('notificationSwitch') ? $request->input('notificationSwitch') : 'off';
+        $popUp->body = $request->input('notificationBody');
+        $popUp->save();
+    
+        return redirect()->back()->with('success', 'Pop up notification settings updated successfully.');
+    }
+    
+    
+    
+    
+    
+    
 
 
     public function saveOpenai(Request $request)

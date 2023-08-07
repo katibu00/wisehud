@@ -8,11 +8,29 @@
                 <div class="col-md-12">
 
                     <div class="card">
-                        <div class="card-header">
+                        <div class="card-header d-flex justify-content-between">
                             <h5 class="card-title">Administrators</h5>
+                            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addAdminModal">
+                                Add New Admin
+                            </button>
                         </div>
                         <div class="card-body">
+                            @if(session('success'))
+                                <div class="alert alert-success">
+                                    {{ session('success') }}
+                                </div>
+                            @endif
 
+                            @if($errors->any())
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
+                        
                             <div class="table-responsive">
                                 @include('admin.users.admin.table')
                             </div>
@@ -61,6 +79,61 @@
         </div>
     </div>
 </div>
+
+
+
+
+<!-- Add New Admin Modal -->
+<div class="modal fade" id="addAdminModal" tabindex="-1" role="dialog" aria-labelledby="addAdminModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="block block-rounded shadow-none mb-0">
+                <div class="block-header block-header-default">
+                    <h3 class="block-title" id="addAdminModalLabel">Add New Admin</h3>
+                    <div class="block-options">
+                        <button type="button" class="btn-block-option" data-bs-dismiss="modal" aria-label="Close">
+                            <span class="bi bi-x"></span>
+                        </button>
+                    </div>
+                </div>
+                <div class="block-content fs-sm my-3">
+                    <form id="addAdminForm" action="{{ route('admin.store') }}" method="post">
+                        @csrf
+                        <div class="form-group">
+                            <label for="adminName">Name</label>
+                            <input type="text" class="form-control" id="adminName" name="adminName" value="{{ old('adminName') }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="adminEmail">Email</label>
+                            <input type="email" class="form-control" id="adminEmail" name="adminEmail" value="{{ old('adminEmail') }}">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="adminPhone">Phone Number</label>
+                            <input type="tel" class="form-control" id="adminPhone" name="adminPhone" value="{{ old('adminPhone') }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="adminPassword">Password</label>
+                            <input type="password" class="form-control" id="adminPassword" name="adminPassword">
+                        </div>
+                        <div class="block-content block-content-full block-content-sm text-end border-top">
+                            <button type="button" class="btn btn-alt-secondary" data-bs-dismiss="modal">
+                                Close
+                            </button>
+                            <button type="submit" class="btn btn-alt-primary" id="submitAddAdmin">
+                                Done
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
 
 @endsection
 

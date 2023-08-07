@@ -71,6 +71,7 @@
         @include('layout.footer')
       </div>
     </div>
+    @yield('js')
     <!-- All JavaScript Files -->
     <script src="/theme/js/bootstrap.bundle.min.js"></script>
     <script src="/theme/js/slideToggle.min.js"></script>
@@ -86,6 +87,6 @@
     <script src="/theme/js/active.js"></script>
     <!-- PWA -->
     <script src="/theme/js/pwa.js"></script>
-    @yield('js')
+  
   </body>
 </html>
