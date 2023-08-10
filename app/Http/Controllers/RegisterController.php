@@ -24,7 +24,7 @@ class RegisterController extends Controller
         $validatedData = $request->validate([
             'name' => 'required|string',
             'phone' => 'required|string|unique:users',
-            'email' => 'nullable|email|unique:users',
+            'email' => 'required|email|unique:users',
             'referral_code' => 'nullable|string',
             'password' => 'required|min:6',
         ]);
@@ -50,8 +50,9 @@ class RegisterController extends Controller
 
             // Create Monnify reserved account
             try {
+               
                 $monnifyReservedAccount = $this->createMonnifyReservedAccount($user, $accessToken);
-
+            //    dd($monnifyReservedAccount);
                 // Save Monnify reserved account details in the reserved_accounts table
                 ReservedAccount::create([
                     'user_id' =>  $user->id,
@@ -59,17 +60,20 @@ class RegisterController extends Controller
                     'customer_name' => $monnifyReservedAccount->customerName,
                     'accounts' => json_encode($monnifyReservedAccount->accounts),
                 ]);
-
+                $user->save();
+                
                 // User account and Monnify account creation are successful
                 return response()->json(['message' => 'User account created successfully']);
             } catch (\Exception $e) {
                 // Handle the exception, you can log the error or do other error handling here
                 // For example:
+              
                 Log::error('Monnify API Error: ' . $e->getMessage());
             }
-
+           
             // Create the user account
             $user->save();
+            
 
             // Return a success response indicating that the Monnify account creation has failed
             return response()->json(['message' => 'User account created successfully. Refresh your Monnify reserved account later.']);
@@ -78,6 +82,7 @@ class RegisterController extends Controller
             return response()->json(['error' => $e->getMessage()], 500);
         }
     }
+
     private function getAccessToken()
     {
         $monnifyKeys = DB::table('monnify_keys')->first();
@@ -120,7 +125,7 @@ class RegisterController extends Controller
             throw new \Exception($monnifyResponse->responseMessage);
         }
 
-        return $monnifyResponse->responseBody->accessToken;
+        return $monnifyResponse->responseBody->accessToken; 
     }
 
 

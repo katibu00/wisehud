@@ -17,7 +17,7 @@ class HomeController extends Controller
     {
 
 
-    $query = ReservedAccount::where('user_id', auth()->user()->id)->first();
+    $query = ReservedAccount::where('customer_email', auth()->user()->email)->first();
 
     if ($query) {
         $accounts = json_decode($query->accounts, true);
