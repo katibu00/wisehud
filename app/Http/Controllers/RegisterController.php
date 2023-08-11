@@ -93,7 +93,7 @@ class RegisterController extends Controller
 
         $curl = curl_init();
         curl_setopt_array($curl, array(
-            CURLOPT_URL => 'https://sandbox.monnify.com/api/v1/auth/login',
+            CURLOPT_URL => 'https://api.monnify.com/api/v1/auth/login',
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => '',
             CURLOPT_MAXREDIRS => 10,
@@ -159,7 +159,7 @@ class RegisterController extends Controller
 
         $curl = curl_init();
         curl_setopt_array($curl, array(
-            CURLOPT_URL => 'https://sandbox.monnify.com/api/v2/bank-transfer/reserved-accounts',
+            CURLOPT_URL => 'https://api.monnify.com/api/v2/bank-transfer/reserved-accounts',
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => '',
             CURLOPT_MAXREDIRS => 10,
