@@ -9,6 +9,7 @@ use App\Http\Controllers\MonnifyController;
 use App\Http\Controllers\RegisterController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\UsersController;
+use App\Http\Controllers\WalletControler;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -65,6 +66,7 @@ Route::post('/api/submit',  [ChatController::class, 'submit'])->middleware('auth
 
 
 Route::get('/chat', [ChatController::class, 'index'])->name('chat.index')->middleware('auth');
+Route::get('/wallet', [WalletControler::class, 'index'])->name('wallet.index')->middleware('auth');
 
 
 

@@ -13,5 +13,6 @@ class Charges extends Model
         'charges_per_chat',
         'welcome_bonus',
         'referral_bonus',
+        'whatsapp_group_link',
     ];
 }

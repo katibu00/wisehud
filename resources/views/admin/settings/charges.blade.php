@@ -44,6 +44,11 @@
                                 <input type="number" class="form-control" id="referralBonus" name="referral_bonus"
                                     value="{{ $charges->referral_bonus ?? '' }}">
                             </div>
+                            <div class="mb-3">
+                                <label for="whatsapp_group_link" class="form-label">WhatsApp Group Link</label>
+                                <input type="text" class="form-control" id="whatsapp_group_link" name="whatsapp_group_link"
+                                    value="{{ $charges->whatsapp_group_link ?? '' }}">
+                            </div>
                             <button type="submit" class="btn btn-primary">Save</button>
                         </form>
                     </div>

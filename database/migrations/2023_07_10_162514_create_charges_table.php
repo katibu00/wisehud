@@ -16,6 +16,7 @@ return new class extends Migration
             $table->double('charges_per_chat');
             $table->double('welcome_bonus')->default(0);
             $table->double('referral_bonus')->default(0);
+            $table->double('whatsapp_group_link')->nullable();
             $table->timestamps();
         });
     }

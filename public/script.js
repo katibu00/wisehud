@@ -118,6 +118,18 @@ const handleSubmit = async (e) => {
 
     const data = new FormData(form);
 
+    const textarea = form.querySelector("textarea");
+    const submitButton = form.querySelector("#submit-button");
+    const sendIcon = form.querySelector("#send-icon");
+    const spinnerIcon = form.querySelector("#spinner-icon");
+
+    // Disable textarea and change submit button icon to spinner
+    textarea.disabled = true;
+    submitButton.disabled = true;
+    sendIcon.style.display = "none";
+    spinnerIcon.style.display = "block";
+
+
     // users chatstripe
     chatContainer.innerHTML += chatStripe(false, data.get("prompt"));
 
@@ -131,6 +143,10 @@ const handleSubmit = async (e) => {
 
     const messageDiv = document.getElementById(uniqueId);
     loader(messageDiv);
+
+
+    const scrollDistance = chatContainer.scrollHeight - chatContainer.clientHeight;
+
 
     const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
     const headers = new Headers();
@@ -157,6 +173,15 @@ const handleSubmit = async (e) => {
                     text: "Please fund your wallet to continue.",
                 });
             }
+
+            textarea.disabled = false;
+            submitButton.disabled = false;
+            sendIcon.style.display = "block";
+            spinnerIcon.style.display = "none";
+            
+            chatContainer.scrollTop = scrollDistance;
+
+
         })
         .catch((error) => {
             console.error(error);

@@ -113,6 +113,7 @@ class SettingsController extends Controller
         'charges_per_chat' => 'required|numeric',
         'welcome_bonus' => 'required|numeric',
         'referral_bonus' => 'required|numeric',
+        'whatsapp_group_link' => 'nullable|string:255',
     ]);
 
     $charges = Charges::first();
