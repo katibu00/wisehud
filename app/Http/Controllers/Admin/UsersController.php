@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\ManualFunding;
 use App\Models\User;
+use App\Models\Wallet;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -37,24 +38,30 @@ class UsersController extends Controller
             'userName' => 'required',
             'amount' => 'required|numeric',
         ]);
-
+    
         $user = User::find($validatedData['userId']);
-
+    
         // Create a new manual funding record
         $manualFunding = new ManualFunding();
         $manualFunding->user_id = $user->id;
         $manualFunding->amount = $validatedData['amount'];
         $manualFunding->save();
-
-        // Increase the user's wallet balance
-        $user->wallet->balance += $validatedData['amount'];
-        $user->wallet->save();
-
+    
+        // If the user doesn't have a wallet, create one and then increment the balance
+        if (!$user->wallet) {
+            $wallet = new Wallet(['balance' => $validatedData['amount']]);
+            $user->wallet()->save($wallet);
+        } else {
+            // Increment the user's wallet balance using the increment method
+            $user->wallet()->increment('balance', $validatedData['amount']);
+        }
+    
         // Perform any additional operations with the manual funding record
-
+    
         // Return a response indicating success
         return response()->json(['message' => 'Manual funding submitted successfully'], 200);
     }
+    
 
 
     public function changePassword(Request $request)

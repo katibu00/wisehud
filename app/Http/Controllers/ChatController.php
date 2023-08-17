@@ -14,7 +14,6 @@ class ChatController extends Controller
     {
         $prompt = $request->input('prompt');
 
-        // return response()->json(['completion' => 'Hi my guy how are and your famuly mala hassan']);
 
         $user = auth()->user();
         $walletBalance = $user->wallet->balance;
