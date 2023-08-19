@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
 
-    <title>@yield('pageTitle') - deMentor</title>
+    <title>@yield('pageTitle') - Wisehud AI</title>
 
     <meta name="description" content="">
     <meta name="author" content="">
@@ -219,7 +219,7 @@
               Developed by <a class="fw-semibold" href="#" target="_blank">GigaPlus Company</a>
             </div>
             <div class="col-sm-6 order-sm-1 py-1 text-center text-sm-start">
-              <a class="fw-semibold" href="https://1.envato.market/95j" target="_blank">deMentor 1.0.0</a> &copy; <span data-toggle="year-copy"></span>
+              <a class="fw-semibold" href="https://1.envato.market/95j" target="_blank"> Wisehud AI 1.0.0</a> &copy; <span data-toggle="year-copy"></span>
             </div>
           </div>
         </div>

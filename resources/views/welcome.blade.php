@@ -209,7 +209,7 @@ Explore WiseHUD AI today.
                                 <i class="fa fa-home fa-2x"></i>
                             </div>
                             <h5 class="mb-3">Effortless project writing</h5>
-                            <p>Wisehud AI offers valuable project writing assistance by helping users generate, organize, and refine their written content. With its natural language capabilities, ChartGPT can brainstorm ideas, outline project structures, provide relevant information, suggest vocabulary, improve readability, and offer editing suggestions.</p>
+                            <p>Wisehud AI offers valuable project writing assistance by helping users generate, organize, and refine their written content. With its natural language capabilities, WISEHUD AI can brainstorm ideas, outline project structures, provide relevant information, suggest vocabulary, improve readability, and offer editing suggestions.</p>
                             <a class="btn px-3 mt-auto mx-auto" href="">Read More</a>
                         </div>
                     </div>
@@ -222,7 +222,7 @@ Explore WiseHUD AI today.
 
 
 </h5>
-                            <p>harnesses its exceptional capabilities to effortlessly tackle intricate mathematical problems. With remarkable precision, it swiftly deciphers and crafts solutions, transforming convoluted equations into clear, concise answers. A master at simplifying complexity, ChartGPT empowers users to conquer challenging math tasks with ease.</p>
+                            <p>harnesses its exceptional capabilities to effortlessly tackle intricate mathematical problems. With remarkable precision, it swiftly deciphers and crafts solutions, transforming convoluted equations into clear, concise answers. A master at simplifying complexity, WISEHUD AI empowers users to conquer challenging math tasks with ease.</p>
                             <a class="btn px-3 mt-auto mx-auto" href="">Read More</a>
                         </div>
                     </div>

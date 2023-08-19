@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Models\Charges;
 use App\Models\ReservedAccount;
 use App\Models\User;
 use App\Models\Wallet;
@@ -52,7 +53,7 @@ class RegisterController extends Controller
             try {
                
                 $monnifyReservedAccount = $this->createMonnifyReservedAccount($user, $accessToken);
-            //    dd($monnifyReservedAccount);
+                $user->save();
                 // Save Monnify reserved account details in the reserved_accounts table
                 ReservedAccount::create([
                     'user_id' =>  $user->id,
@@ -60,7 +61,12 @@ class RegisterController extends Controller
                     'customer_name' => $monnifyReservedAccount->customerName,
                     'accounts' => json_encode($monnifyReservedAccount->accounts),
                 ]);
-                $user->save();
+                $welcome_bonus = Charges::select('welcome_bonus')->first();
+                Wallet::create([
+                    'user_id' =>  $user->id,
+                    'balance' =>  $welcome_bonus->welcome_bonus,
+                ]);
+              
                 
                 // User account and Monnify account creation are successful
                 return response()->json(['message' => 'User account created successfully']);

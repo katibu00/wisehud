@@ -3,14 +3,14 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Affan - PWA Mobile HTML Template">
+    <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="theme-color" content="#0134d4">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <!-- Title -->
-    <title>deMentor - Login</title>
+    <title>Wisehud AI - Login</title>
 	<meta name="csrf-token" content="{{ csrf_token() }}">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
 
@@ -55,7 +55,7 @@
         <div class="text-center px-4"><img class="login-intro-img" src="img/bg-img/36.png" alt=""></div>
         <!-- Register Form -->
         <div class="register-form mt-4">
-          <h6 class="mb-3 text-center">Log in to continue to deMentor.</h6>
+          <h6 class="mb-3 text-center">Log in to continue to Wisehud AI.</h6>
           <form id="login-form">
             <div class="form-group">
               <input class="form-control" type="text" name="email_or_phone" placeholder="Enter Email/Phone Number">
