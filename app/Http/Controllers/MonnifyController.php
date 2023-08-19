@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\MonnifyTransfer;
 use App\Models\ReservedAccount;
+use App\Models\User;
 use App\Models\Wallet;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -18,11 +19,11 @@ class MonnifyController extends Controller
         $amountPaid = $paymentSourceInformation['amountPaid'];
         $customerEmail = $payload['eventData']['customer']['email'];
 
-        $reservedAccount = ReservedAccount::where('customer_email', $customerEmail)->first();
+        $user = User::where('email', $customerEmail)->first();
 
-        if ($reservedAccount) {
+        if ($user) {
             // Retrieve the user's wallet
-            $wallet = Wallet::where('user_id', $reservedAccount->user_id)->first();
+            $wallet = Wallet::where('user_id', $user->id)->first();
 
             if ($wallet) {
                 $wallet->balance += $payload['eventData']['settlementAmount'];
