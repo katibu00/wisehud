@@ -300,7 +300,6 @@ z" />
                     <div class="card-body">
                         <div class="standard-tab">
                             <ul class="nav rounded-lg mb-2 p-2 shadow-sm" id="affanTabs1" role="tablist">
-
                                 @if (is_array($accounts) && count($accounts) > 0)
                                     @foreach ($accounts as $key => $account)
                                         <li class="nav-item" role="presentation">
@@ -312,10 +311,8 @@ z" />
                                         </li>
                                     @endforeach
                                 @endif
-
                             </ul>
                             <div class="tab-content rounded-lg p-3 shadow-sm" id="affanTabs1Content">
-
                                 @if (is_array($accounts) && count($accounts) > 0)
                                     @foreach ($accounts as $key => $account)
                                         <div class="tab-pane fade {{ $loop->first ? 'show active' : '' }}"
@@ -328,18 +325,20 @@ z" />
                                                     onclick="copyToClipboard('{{ $account['accountNumber'] }}')">
                                                     <i class="fas fa-copy"></i>
                                                 </button>
+                                                <p class="mb-0 ml-3">
+                                                    <span class="font-weight-bold">Charges:</span>
+                                                   {{ $charges->funding_charges_description }}
+                                                </p>
                                             </div>
                                             <p class="mb-0"><span class="font-weight-bold">Acc. Name:</span>
                                                 {{ $account['accountName'] }}</p>
                                         </div>
                                     @endforeach
                                 @endif
-
-
-
                             </div>
                         </div>
                     </div>
+                    
                 </div>
             </div>
             <div class="pt-3"></div>

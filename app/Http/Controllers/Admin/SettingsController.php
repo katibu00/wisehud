@@ -54,13 +54,6 @@ class SettingsController extends Controller
     
         return redirect()->back()->with('success', 'Pop up notification settings updated successfully.');
     }
-    
-    
-    
-    
-    
-    
-
 
     public function saveOpenai(Request $request)
     {
@@ -104,16 +97,16 @@ class SettingsController extends Controller
         return redirect()->back()->with('success', 'Monnify API keys saved successfully');
     }
 
-
-
     public function saveCharges(Request $request)
 {
     // Validate the input
     $validatedData = $request->validate([
         'charges_per_chat' => 'required|numeric',
+        'funding_charges_amount' => 'required|numeric',
         'welcome_bonus' => 'required|numeric',
         'referral_bonus' => 'required|numeric',
         'whatsapp_group_link' => 'nullable|string:255',
+        'funding_charges_description' => 'nullable|string:255',
     ]);
 
     $charges = Charges::first();

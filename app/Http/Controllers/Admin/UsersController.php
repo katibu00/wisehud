@@ -28,9 +28,6 @@ class UsersController extends Controller
         return view('admin.users.admin.index', compact('users'));
     }
 
-
-
-
     public function manualFunding(Request $request)
     {
         $validatedData = $request->validate([
@@ -61,8 +58,6 @@ class UsersController extends Controller
         // Return a response indicating success
         return response()->json(['message' => 'Manual funding submitted successfully'], 200);
     }
-    
-
 
     public function changePassword(Request $request)
     {
@@ -78,7 +73,6 @@ class UsersController extends Controller
         // Return a response indicating success
         return response()->json(['message' => 'Password changed successfully'], 200);
     }
-
 
     public function destroy(Request $request, $id)
     {

@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\HomeController;
@@ -51,7 +50,7 @@ Route::group(['middleware' => ['auth', 'regular']], function () {
 });
 
 Route::group(['middleware' => ['auth', 'admin']], function () {
-    Route::get('/admin/home', [AdminController::class, 'index'])->name('admin.home');
+    Route::get('/admin/home', [HomeController::class, 'admin'])->name('admin.home');
 });
 
 

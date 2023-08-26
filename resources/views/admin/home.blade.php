@@ -14,7 +14,7 @@
               <i class="fa fa-users fa-2x opacity-25"></i>
             </div>
             <div>
-              <div class="fs-3 fw-semibold">{{ @$totalUsers }}</div>
+              <div class="fs-3 fw-semibold">{{ $totalUsers }}</div>
               <div class="fs-sm fw-semibold text-uppercase text-muted">Total Users</div>
             </div>
           </div>
@@ -53,8 +53,8 @@
               <i class="fa fa-users fa-2x opacity-25"></i>
             </div>
             <div>
-              <div class="fs-3 fw-semibold">{{ @$activeUsers }}</div>
-              <div class="fs-sm fw-semibold text-uppercase text-muted">Active Users</div>
+              <div class="fs-3 fw-semibold">{{ @$newUsers }}</div>
+              <div class="fs-sm fw-semibold text-uppercase text-muted">New Users (Last 3 days)</div>
             </div>
           </div>
         </a>

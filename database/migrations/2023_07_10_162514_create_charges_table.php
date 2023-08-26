@@ -17,6 +17,8 @@ return new class extends Migration
             $table->double('welcome_bonus')->default(0);
             $table->double('referral_bonus')->default(0);
             $table->double('whatsapp_group_link')->nullable();
+            $table->string('funding_charges_description')->nullable();
+            $table->double('funding_charges_amount')->nullable();
             $table->timestamps();
         });
     }

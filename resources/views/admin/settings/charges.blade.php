@@ -45,6 +45,16 @@
                                     value="{{ $charges->referral_bonus ?? '' }}">
                             </div>
                             <div class="mb-3">
+                                <label for="fundingCahrgesDescription" class="form-label">Funding Charges Description</label>
+                                <input type="text" class="form-control" id="fundingCahrgesDescription" name="funding_charges_description"
+                                    value="{{ $charges->funding_charges_description ?? '' }}">
+                            </div>
+                            <div class="mb-3">
+                                <label for="funding_charges_amount" class="form-label">Funding Charges Amount</label>
+                                <input type="number" class="form-control" id="funding_charges_amount" name="funding_charges_amount"
+                                    value="{{ $charges->funding_charges_amount ?? '' }}">
+                            </div>
+                            <div class="mb-3">
                                 <label for="whatsapp_group_link" class="form-label">WhatsApp Group Link</label>
                                 <input type="text" class="form-control" id="whatsapp_group_link" name="whatsapp_group_link"
                                     value="{{ $charges->whatsapp_group_link ?? '' }}">

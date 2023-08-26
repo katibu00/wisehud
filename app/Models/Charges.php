@@ -14,5 +14,7 @@ class Charges extends Model
         'welcome_bonus',
         'referral_bonus',
         'whatsapp_group_link',
+        'funding_charges_description',
+        'funding_charges_amount',
     ];
 }

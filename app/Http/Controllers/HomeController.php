@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Charges;
 use Illuminate\Http\Request;
 use App\Models\ReservedAccount;
 use App\Models\User;
@@ -28,7 +29,9 @@ class HomeController extends Controller
 
       $popUp = PopUp::where('switch', 'on')->first();
 
-    return view('home.regular', compact('accounts', 'popUp'));
+      $charges = Charges::select('funding_charges_description')->first();
+
+    return view('home.regular', compact('accounts', 'popUp','charges'));
 
     }
 
@@ -40,15 +43,13 @@ class HomeController extends Controller
         $totalUsers = User::count();
         $totalWalletBalance = Wallet::sum('balance');
         $totalFundings = MonnifyTransfer::sum('amount_paid');
-        
-        // Calculate the number of active users based on the last login time (within the last 30 days)
-        $activeUsers = User::where('created_at', '>=', Carbon::now()->subDays(30))->count();
+    
     
         // Calculate the number of new users (registered within the last 30 days)
-        $newUsers = User::where('created_at', '>=', Carbon::now()->subDays(30))->count();
+        $newUsers = User::where('created_at', '>=', Carbon::now()->subDays(3))->count();
     
         // Pass the statistics to the view
-        return view('admin.home', compact('totalUsers', 'totalWalletBalance', 'totalFundings', 'activeUsers', 'newUsers'));
+        return view('admin.home', compact('totalUsers', 'totalWalletBalance', 'totalFundings', 'newUsers'));
 
     }
     

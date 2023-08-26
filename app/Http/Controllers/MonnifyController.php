@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Charges;
 use App\Models\MonnifyTransfer;
 use App\Models\ReservedAccount;
 use App\Models\User;
@@ -18,6 +19,7 @@ class MonnifyController extends Controller
         $paymentSourceInformation = $payload['eventData']['paymentSourceInformation'][0];
         $amountPaid = $paymentSourceInformation['amountPaid'];
         $customerEmail = $payload['eventData']['customer']['email'];
+        $charges = Charges::select('funding_charges_amount')->first()->funding_charges_amount;
 
         $user = User::where('email', $customerEmail)->first();
 
@@ -26,7 +28,7 @@ class MonnifyController extends Controller
             $wallet = Wallet::where('user_id', $user->id)->first();
 
             if ($wallet) {
-                $wallet->balance += $payload['eventData']['settlementAmount'];
+                $wallet->balance += ($payload['eventData']['settlementAmount'] - $charges);
                 $wallet->save();
 
                 MonnifyTransfer::create([
