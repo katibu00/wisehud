@@ -31,7 +31,6 @@
     <link rel="stylesheet" href="/theme/css/apexcharts.css">
     <!-- Core Stylesheet -->
     <link rel="stylesheet" href="/theme/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
     <!-- Web App Manifest -->
     {{-- <link rel="manifest" href="manifest.json"> --}}
   </head>
@@ -50,7 +49,7 @@
         <!-- Register Form -->
         <div class="register-form mt-4">
           <h6 class="mb-3 text-center">Register to continue to Wisehud AI.</h6>
-          <form id="login-form">
+          <form id="register-form">
             <div class="form-group text-start mb-3">
               <input class="form-control" type="text" name="name" placeholder="Enter your Name">
             </div>
@@ -91,15 +90,17 @@
     <!-- PWA -->
     <script src="/theme/js/pwa.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
    
+
     <script>
       $(document).ready(function() {
-          $('#login-form').submit(function(event) {
+          $('#register-form').submit(function(event) {
               event.preventDefault();
               var submitButton = $(this).find('button[type="submit"]');
               submitButton.prop('disabled', true).html(
-                  '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...'
+                  '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Please Wait...'
               );
   
               var formData = new FormData(this);
@@ -119,30 +120,41 @@
                       submitButton.prop('disabled', false).text('Login');
   
                       if (response.message) {
-                          toastr.success(response.message+' Redirecting to Login...');
-                          setTimeout(function() {
-                            window.location.href = '/login';
-                          }, 200);
-                      }
-  
-                      // Optionally, redirect to the dashboard after showing the success message
-                      if (response.success) {
-                          toastr.success('Login successful. Redirecting to Login...');
-                          setTimeout(function() {
+                          Swal.fire({
+                              icon: 'success',
+                              title: 'Success',
+                              text: response.message
+                          }).then(() => {
                               window.location.href = '/login';
-                          }, 200);
+                          });
                       }
                   },
                   error: function(xhr, status, error) {
                       submitButton.prop('disabled', false).text('Login');
   
                       var response = xhr.responseJSON;
-                      if (response && response.errors && response.errors.login_error) {
-                          toastr.warning(response.errors.login_error[0]);
-                      } else if (response && response.message) {
-                          toastr.error(response.message);
+                      if (response && response.errors) {
+                          var errorMessage = '';
+                          $.each(response.errors, function(field, messages) {
+                              errorMessage += messages[0] + '\n';
+                          });
+                          Swal.fire({
+                              icon: 'warning',
+                              title: 'Validation Error',
+                              text: errorMessage
+                          });
+                      } else if (response && response.error) {
+                          Swal.fire({
+                              icon: 'error',
+                              title: 'Error',
+                              text: response.error
+                          });
                       } else {
-                          toastr.error('An error occurred. Please try again.');
+                          Swal.fire({
+                              icon: 'error',
+                              title: 'Error',
+                              text: 'An error occurred. Please try again.'
+                          });
                       }
                   }
               });

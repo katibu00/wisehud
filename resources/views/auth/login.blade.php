@@ -12,7 +12,6 @@
     <!-- Title -->
     <title>Wisehud AI - Login</title>
 	<meta name="csrf-token" content="{{ csrf_token() }}">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -89,58 +88,84 @@
     <script src="/theme/js/active.js"></script>
     <!-- PWA -->
     <script src="/theme/js/pwa.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-	<script>
+
+  <script>
+           
     
-		$(document).ready(function() {
-			$('#login-form').submit(function(event) {
-				event.preventDefault();
-				var submitButton = $(this).find('button[type="submit"]');
-				submitButton.prop('disabled', true).html(
-					'<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...'
-				);
+    $(document).ready(function() {
+     $('#login-form').submit(function(event) {
+         event.preventDefault();
+         var submitButton = $(this).find('button[type="submit"]');
+         submitButton.prop('disabled', true).html(
+             '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Please Wait...'
+         );
 
-				var formData = new FormData(this);
+         var formData = new FormData(this);
+         $.ajaxSetup({
+              headers: {
+                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+              }
+          });
+         $.ajax({
+             url: '/login',
+             type: 'POST',
+             data: formData,
+             processData: false,
+             contentType: false,
+             success: function(response) {
+                 submitButton.prop('disabled', false).text('Login');
 
-				$.ajaxSetup({
-					headers: {
-						'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-					}
-				});
-				$.ajax({
-					url: '/login',
-					type: 'POST',
-					data: formData,
-					processData: false,
-					contentType: false,
-					success: function(response) {
-						submitButton.prop('disabled', false).text('Login');
+                 if (response.success) {
+                     Swal.fire({
+                         icon: 'success',
+                         title: 'Login Successful',
+                         text: 'Redirecting to dashboard...',
+                         timer: 2000,
+                         timerProgressBar: true,
+                         showConfirmButton: false,
+                         didOpen: () => {
+                             setTimeout(() => {
+                                 window.location.href = response.redirect_url;
+                             }, 500);
+                         }
+                     });
+                 } else {
+                     Swal.fire({
+                         icon: 'error',
+                         title: 'Invalid Credentials',
+                         text: 'Please check your email/phone and password.',
+                     });
+                 }
+             },
+             error: function(xhr, status, error) {
+                 submitButton.prop('disabled', false).text('Login');
 
-						if (response.success) {
-							toastr.success('Login successful. Redirecting to dashboard...');
-							setTimeout(function() {
-								window.location.href = response.redirect_url;
-							}, 200);
-						} else {
-							toastr.danger('Invalid credentials.');
-						}
-					},
-					error: function(xhr, status, error) {
-						submitButton.prop('disabled', false).text('Login');
-
-						var response = xhr.responseJSON;
-						if (response && response.errors && response.errors.login_error) {
-							toastr.danger(response.errors.login_error[0]);
-						} else if (response && response.message) {
-							toastr.error(response.message);
-						} else {
-							toastr.error('An error occurred. Please try again.');
-						}
-					}
-				});
-			});
-		});
-	</script>
+                 var response = xhr.responseJSON;
+                 if (response && response.errors && response.errors.login_error) {
+                     Swal.fire({
+                         icon: 'warning',
+                         title: 'Login Error',
+                         text: response.errors.login_error[0]
+                     });
+                 } else if (response && response.message) {
+                     Swal.fire({
+                         icon: 'error',
+                         title: 'Error',
+                         text: response.message
+                     });
+                 } else {
+                     Swal.fire({
+                         icon: 'error',
+                         title: 'An Error Occurred',
+                         text: 'Please try again later.'
+                     });
+                 }
+             }
+         });
+     });
+ });
+</script>
   </body>
 </html>
