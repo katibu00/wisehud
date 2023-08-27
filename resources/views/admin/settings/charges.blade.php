@@ -31,7 +31,7 @@
                             @csrf
                             <div class="mb-3">
                                 <label for="chargesPerChat" class="form-label">Charges per Chat</label>
-                                <input type="number" class="form-control" id="chargesPerChat" name="charges_per_chat"
+                                <input type="number" step="any" class="form-control" id="chargesPerChat" name="charges_per_chat"
                                     value="{{ $charges->charges_per_chat ?? '' }}">
                             </div>
                             <div class="mb-3">
