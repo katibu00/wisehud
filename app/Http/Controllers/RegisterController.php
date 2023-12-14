@@ -21,6 +21,7 @@ class RegisterController extends Controller
 
     public function register(Request $request)
     {
+        return $request->all();
         DB::beginTransaction();
 
         try {
