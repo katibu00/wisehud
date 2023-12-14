@@ -21,7 +21,7 @@ class RegisterController extends Controller
 
     public function register(Request $request)
     {
-        DB::beginTransaction(); // Start a database transaction
+        DB::beginTransaction();
 
         try {
             // Validate the request data
