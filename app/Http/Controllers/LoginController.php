@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 
+
+
 class LoginController extends Controller
 {
     public function index()
@@ -76,7 +78,6 @@ class LoginController extends Controller
         return redirect()->route('login');
     }
 
-
     public function apiLogin(Request $request)
     {
         $request->validate([
@@ -99,18 +100,26 @@ class LoginController extends Controller
     
             // Generate a new token
             $token = $user->createToken('AuthToken')->plainTextToken;
-
+    
             $userData = [
                 'name' => $user->name,
                 'phone' => $user->phone,
                 'email' => $user->email,
             ];
     
+            // Retrieve wallet balance
+            $walletBalance = $user->wallet->balance;
+    
+            // Retrieve reserved accounts
+            $reservedAccounts = $user->reservedAccounts;
+    
             return response()->json([
                 'success' => true,
                 'message' => 'Login successful',
                 'access_token' => $token,
                 'user' => $userData,
+                'wallet_balance' => $walletBalance,
+                'reserved_accounts' => $reservedAccounts,
             ], 200);
         }
     
@@ -119,5 +128,5 @@ class LoginController extends Controller
             'message' => 'Invalid credentials',
         ], 401);
     }
-
+    
 }
