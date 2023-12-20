@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ChatController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\WalletControler;
@@ -19,5 +20,6 @@ Route::post('/login', [LoginController::class,'apiLogin']);
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/wallet/balance', [WalletControler::class, 'getWalletBalance']);
     Route::post('/logout', [LoginController::class, 'apiLogout']);
+    Route::post('/submit',  [ChatController::class, 'submit']);
 
 });
