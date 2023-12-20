@@ -20,6 +20,6 @@ Route::post('/login', [LoginController::class,'apiLogin']);
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/wallet/balance', [WalletControler::class, 'getWalletBalance']);
     Route::post('/logout', [LoginController::class, 'apiLogout']);
-    Route::post('/submit',  [ChatController::class, 'submit']);
+    Route::post('/submit_prompt',  [ChatController::class, 'submit']);
 
 });
