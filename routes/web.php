@@ -97,6 +97,9 @@ Route::group(['prefix' => 'users', 'middleware' => ['auth', 'admin']], function 
 
     Route::post('/admin/submit',  [UsersController::class, 'storeAdmin'])->name('admin.store');
 
+    Route::get('/search-users', [UsersController::class, 'search'])->name('search-users');
+
+
 
 });
 

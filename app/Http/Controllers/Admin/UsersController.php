@@ -7,6 +7,7 @@ use App\Models\ManualFunding;
 use App\Models\User;
 use App\Models\Wallet;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class UsersController extends Controller
@@ -106,6 +107,29 @@ class UsersController extends Controller
         $admin->save();
 
         return redirect()->route('admins.index')->with('success', 'New admin added successfully.');
+    }
+
+
+    public function search(Request $request)
+    {
+        // Get the search query from the request
+        $searchQuery = $request->input('search');
+
+        // Perform the search logic based on your application requirements
+        $filteredUsers = User::where('user_type', 'regular')
+            ->where(function ($query) use ($searchQuery) {
+                $query->where('name', 'like', '%' . $searchQuery . '%')
+                    ->orWhere('email', 'like', '%' . $searchQuery . '%');
+                // Add more conditions as needed for your search
+            })
+            ->orderBy('created_at', 'desc')
+            ->paginate(2);
+
+        // Check if there are no matching users
+        $noMatch = $filteredUsers->isEmpty();
+
+        // Return the updated table content along with the no match flag
+        return view('admin.users.regular.index', ['users' => $filteredUsers, 'noMatch' => $noMatch]);
     }
 
 }

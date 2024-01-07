@@ -13,6 +13,11 @@
         </tr>
     </thead>
     <tbody>
+        @if(@$noMatch)
+        <tr>
+            <td colspan="9" class="text-center text-danger">No matching users found.</td>
+        </tr>
+    @else
         @foreach ($users as $key => $user)
             @php
                 $userEmail = $user->email;
@@ -58,5 +63,6 @@
                 </td>
             </tr>
         @endforeach
+        @endif
     </tbody>
 </table>
