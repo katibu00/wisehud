@@ -55,7 +55,22 @@ class HomeController extends Controller
     
     
     
-    
+    public function getPopup()
+    {
+        $popup = PopUp::where('switch', 'on')->first();
+
+        if ($popup) {
+            return response()->json([
+                'status' => 'success',
+                'popup' => $popup,
+            ]);
+        } else {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'No popup found.',
+            ], 404);
+        }
+    }
     
     
     

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Charges;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
@@ -113,6 +114,8 @@ class LoginController extends Controller
             // Retrieve reserved accounts
             $reservedAccounts = $user->reservedAccounts;
     
+            $charges = Charges::first();
+
             return response()->json([
                 'success' => true,
                 'message' => 'Login successful',
@@ -120,6 +123,7 @@ class LoginController extends Controller
                 'user' => $userData,
                 'wallet_balance' => $walletBalance,
                 'reserved_accounts' => $reservedAccounts,
+                'whatsapp_group_link' => $charges->whatsapp_group_link,
             ], 200);
         }
     

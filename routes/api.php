@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ChatController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\WalletControler;
@@ -23,3 +24,6 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('/submit_prompt',  [ChatController::class, 'submit']);
 
 });
+
+Route::get('/get-popup', [HomeController::class, 'getPopup']);
+
