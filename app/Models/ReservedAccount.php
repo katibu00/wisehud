@@ -11,6 +11,7 @@ class ReservedAccount extends Model
 
     protected $fillable = [
         'user_id',
+        'account_reference',
         'customer_email',
         'customer_name',
         'accounts',

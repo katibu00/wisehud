@@ -13,7 +13,6 @@ use Illuminate\Support\Facades\Log;
 class RegisterController extends Controller
 {
 
-
     public function index()
     {
         return view('auth.register');
@@ -32,7 +31,26 @@ class RegisterController extends Controller
                 'email' => 'required|email|unique:users',
                 'password' => 'required|min:6',
             ]);
-
+            
+            // Check if the select field value is 'bvn' or 'nin'
+            if ($request->input('bvn_nin_select') === 'bvn') {
+                // If 'bvn' is selected, add validation rule for 'bvn' field
+                $bvnValidation = $request->validate([
+                    'bvn' => ['required', 'string', 'regex:/^\d{11}$/'],
+                ]);
+            
+                // Merge the validation rules with existing validatedData
+                $validatedData = array_merge($validatedData, $bvnValidation);
+            } elseif ($request->input('bvn_nin_select') === 'nin') {
+                // If 'nin' is selected, add validation rule for 'nin' field
+                $ninValidation = $request->validate([
+                    'nin' => ['required', 'string', 'regex:/^\d{11}$/'],
+                ]);
+            
+                // Merge the validation rules with existing validatedData
+                $validatedData = array_merge($validatedData, $ninValidation);
+            }
+            // dd($validatedData);
             $fullName = $validatedData['name'];
             $firstName = explode(' ', $fullName)[0];
             $randomString = substr(str_shuffle('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'), 0, 4);
@@ -52,12 +70,13 @@ class RegisterController extends Controller
             $accessToken = $this->getAccessToken();
 
             // Create Monnify reserved account
-            $monnifyReservedAccount = $this->createMonnifyReservedAccount($user, $accessToken);
+            $monnifyReservedAccount = $this->createMonnifyReservedAccount($user, $accessToken, $validatedData);
 
             // Save user and Monnify account details
             $user->save();
             ReservedAccount::create([
                 'user_id' => $user->id,
+                'account_reference' => $monnifyReservedAccount->accountReference,
                 'customer_email' => $monnifyReservedAccount->customerEmail,
                 'customer_name' => $monnifyReservedAccount->customerName,
                 'accounts' => json_encode($monnifyReservedAccount->accounts),
@@ -121,13 +140,10 @@ class RegisterController extends Controller
             throw new \Exception($monnifyResponse->responseMessage);
         }
 
-        return $monnifyResponse->responseBody->accessToken; 
+        return $monnifyResponse->responseBody->accessToken;
     }
 
-
-
-
-    private function createMonnifyReservedAccount(User $user, $accessToken)
+    private function createMonnifyReservedAccount(User $user, $accessToken, $validatedData)
     {
         $accountReference = uniqid('abc', true);
         $accountName = $user->name;
@@ -149,6 +165,8 @@ class RegisterController extends Controller
             'customerEmail' => $customerEmail,
             'customerName' => $customerName,
             'getAllAvailableBanks' => $getAllAvailableBanks,
+            'bvn' => $validatedData['bvn'] ?? null,
+            'nin' => $validatedData['nin'] ?? null,
         ];
 
         $jsonData = json_encode($data);
