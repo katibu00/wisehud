@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Charges;
+use App\Models\MarqueeNotification;
 use App\Models\MonnifyTransfer;
 use App\Models\PopUp;
 use App\Models\ReservedAccount;
@@ -28,7 +29,9 @@ class HomeController extends Controller
 
         $charges = Charges::select('funding_charges_description')->first();
 
-        return view('home.regular', compact('accounts', 'popUp', 'charges'));
+        $marqueeNotification = MarqueeNotification::first();
+
+        return view('home.regular', compact('accounts', 'popUp', 'charges','marqueeNotification'));
 
     }
 
@@ -36,7 +39,7 @@ class HomeController extends Controller
     {
         // Get the required statistics
         $totalUsers = User::count();
-        $totalWalletBalance = Wallet::sum('balance');
+        $totalWalletBalance = Wallet::sum('main_balance');
         $totalFundings = MonnifyTransfer::sum('amount_paid');
 
         // Calculate the number of new users (registered within the last 30 days)

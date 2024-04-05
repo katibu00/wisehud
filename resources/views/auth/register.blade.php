@@ -46,44 +46,18 @@
     <!-- Internet Connection Status -->
     <!-- # This code for showing internet connection status -->
     <div class="internet-connection-status" id="internetStatus"></div>
+
+    <div class="login-back-button"><a href="{{  route('login') }}">
+        <svg class="bi bi-arrow-left-short" width="32" height="32" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5z"></path>
+        </svg></a></div>
     <!-- Login Wrapper Area -->
     <div class="login-wrapper d-flex align-items-center justify-content-center">
         <div class="custom-container">
-            {{-- <div class="text-center px-4"><img class="login-intro-img" src="img/bg-img/36.png" alt=""></div> --}}
+            <div class="text-center px-4"><img class="login-intro-img" src="/logo.jpg" alt=""></div>
             <!-- Register Form -->
 
-
-            {{-- <div class="register-form mt-4">
-          <h6 class="mb-3 text-center">Register to continue to Wisehud AI.</h6>
-          <form id="register-form">
-            <div class="form-group text-start mb-3">
-              <input class="form-control" type="text" name="name" placeholder="Enter your Name">
-            </div>
-            <div class="form-group text-start mb-3">
-              <input class="form-control" type="text" name="phone" placeholder="Enter your Phone Number">
-            </div>
-            <div class="form-group text-start mb-3">
-              <input class="form-control" type="email" name="email" placeholder="Enter your Email (optional)">
-            </div>
-            <div class="form-group text-start mb-3">
-              <input class="form-control" type="email" name="referral_code" placeholder="Enter Referral Code (optional)">
-            </div>
-            <div class="form-group text-start mb-3 position-relative">
-              <input class="form-control" id="psw-input" type="password" name="password" placeholder="New password">
-              <div class="position-absolute" id="password-visibility"><i class="bi bi-eye"></i><i class="bi bi-eye-slash"></i></div>
-            </div>
-            <div class="mb-3" id="pswmeter"></div>
-            
-            <button class="btn btn-primary w-100" type="submit">Sign Up</button>
-          </form>
-        </div> --}}
-
-
-
-
-
-
-            <div class="register-form mt-4">
+            <div class="register-form mt-">
                 <h6 class="mb-3 text-center">Register to continue to Wisehud AI.</h6>
                 <form id="register-form">
                     <div class="form-group text-start mb-3">
@@ -94,11 +68,11 @@
                     </div>
                     <div class="form-group text-start mb-3">
                         <input class="form-control" type="email" name="email"
-                            placeholder="Enter your Email (optional)">
+                            placeholder="Enter your Email">
                     </div>
                     <div class="form-group text-start mb-3">
                         <input class="form-control" type="email" name="referral_code"
-                            placeholder="Enter Referral Code (optional)">
+                            placeholder="Enter Referral Code">
                     </div>
                     <div class="form-group text-start mb-3">
                         <div class="d-flex align-items-center">
@@ -111,10 +85,10 @@
                         </div>
                     </div>
                     <div class="form-group text-start mb-3" id="bvnField">
-                        <input class="form-control" type="text" name="bvn" placeholder="Enter your BVN">
+                        <input class="form-control" type="text" name="bvn" placeholder="Enter your BVN (optional)">
                     </div>
                     <div class="form-group text-start mb-3" id="ninField" style="display: none;">
-                        <input class="form-control" type="text" name="nin" placeholder="Enter your NIN">
+                        <input class="form-control" type="text" name="nin" placeholder="Enter your NIN (optional)">
                     </div>
                     <div class="form-group text-start mb-3 position-relative">
                         <input class="form-control" id="psw-input" type="password" name="password"

@@ -3,9 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\BrevoAPIKey;
 use App\Models\Charges;
+use App\Models\MarqueeNotification;
 use App\Models\MonnifyKey;
 use App\Models\OpenAIKey;
+use App\Models\PaystackAPIKey;
 use App\Models\PopUp;
 use Illuminate\Http\Request;
 
@@ -28,10 +31,95 @@ class SettingsController extends Controller
         $charges = Charges::first();
         return view('admin.settings.charges', compact('charges'));
     }
+    public function brevoKeys()
+    {
+        $openAIKey = BrevoAPIKey::first();
+        return view('admin.settings.brevo_key', compact('openAIKey'));
+    }
+    public function paystackKeys()
+    {
+        $openAIKey = PaystackAPIKey::first();
+        return view('admin.settings.paystack_key', compact('openAIKey'));
+    }
     public function popup()
     {
         $popUp = PopUp::first();
         return view('admin.settings.popup', compact('popUp'));
+    }
+
+
+    public function savePaystack(Request $request)
+    {
+        $validatedData = $request->validate([
+            'public_key' => 'required|string',
+            'secret_key' => 'required|string',
+        ]);
+
+        $existingKey = PaystackAPIKey::first();
+
+        if ($existingKey) {
+            $existingKey->update([
+                'public_key' => $validatedData['public_key'],
+                'secret_key' => $validatedData['secret_key'],
+            ]);
+
+            return redirect()->back()->with('success', 'Paystack API key updated successfully');
+        } else {
+            $openAIKey = new PaystackAPIKey();
+            $openAIKey->public_key = $validatedData['public_key'];
+            $openAIKey->secret_key = $validatedData['secret_key'];
+            $openAIKey->save();
+            return redirect()->back()->with('success', 'Paystack API key saved successfully');
+        }
+    }
+    public function saveBrevo(Request $request)
+    {
+        $validatedData = $request->validate([
+            'api_key' => 'required|string',
+        ]);
+
+        $existingKey = BrevoAPIKey::first();
+
+        if ($existingKey) {
+            $existingKey->update([
+                'api_key' => $validatedData['api_key'],
+            ]);
+
+            return redirect()->back()->with('success', 'Brevo API key updated successfully');
+        } else {
+            $openAIKey = new BrevoAPIKey();
+            $openAIKey->api_key = $validatedData['api_key'];
+            $openAIKey->save();
+            return redirect()->back()->with('success', 'Brevo API key saved successfully');
+        }
+    }
+
+
+    public function marquee()
+    {
+        $marqueeNotification = MarqueeNotification::first();
+        return view('admin.settings.marquee', compact('marqueeNotification'));
+    }
+
+    public function saveMarquee(Request $request)
+    {
+        $request->validate([
+            'notificationTitle' => 'required',
+            'notificationMessage' => 'required',
+            'notificationPriority' => 'required|in:low,medium,high',
+        ]);
+
+        $marqueeNotification = MarqueeNotification::first();
+        if (!$marqueeNotification) {
+            $marqueeNotification = new MarqueeNotification();
+        }
+
+        $marqueeNotification->title = $request->input('notificationTitle');
+        $marqueeNotification->message = $request->input('notificationMessage');
+        $marqueeNotification->priority = $request->input('notificationPriority');
+        $marqueeNotification->save();
+
+        return redirect()->back()->with('success', 'Marquee notification settings updated successfully.');
     }
 
 

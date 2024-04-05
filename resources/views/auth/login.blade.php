@@ -51,7 +51,7 @@
     <!-- Login Wrapper Area -->
     <div class="login-wrapper d-flex align-items-center justify-content-center">
       <div class="custom-container">
-        <div class="text-center px-4"><img class="login-intro-img" src="img/bg-img/36.png" alt=""></div>
+        <div class="text-center px-4"><img class="login-intro-img" src="/logo.jpg" alt=""></div>
         <!-- Register Form -->
         <div class="register-form mt-4">
           <h6 class="mb-3 text-center">Log in to continue to Wisehud AI.</h6>
@@ -63,13 +63,21 @@
               <input class="form-control" id="password" name="password" type="password" placeholder="Enter Password">
               <div class="position-absolute" id="password-visibility"><i class="bi bi-eye"></i><i class="bi bi-eye-slash"></i></div>
             </div>
+            <div class="form-check mb-3">
+              <input class="form-check-input" type="checkbox" name="remember_me" id="remember_me" checked>
+              <label class="form-check-label" for="remember_me">
+                  Keep me logged in
+              </label>
+          </div>
             <button class="btn btn-primary w-100" type="submit">Sign In</button>
           </form>
         </div>
         <!-- Login Meta -->
-        <div class="login-meta-data text-center"><a class="stretched-link forgot-password d-block mt-3 mb-1" href="#">Forgot Password?</a>
-          <p class="mb-0">Didn't have an account? <a class="stretched-link" href="{{ route('register') }}">Register Now</a></p>
-        </div>
+        <div class="login-meta-data d-flex justify-content-between mt-3 mb-1">
+          <a class="stretched-link" href="{{ route('register') }}">Register an Account</a>
+          <a class="stretched-link forgot-password d-block " href="{{ route('password.forgot') }}">Forgot Password?</a>
+      </div>
+      
       </div>
     </div>
     <!-- All JavaScript Files -->

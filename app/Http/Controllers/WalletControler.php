@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Models\PaystackAPIKey;
 use Illuminate\Http\Request;
 use App\Models\ReservedAccount;
 
@@ -17,7 +19,9 @@ class WalletControler extends Controller
             $accounts = [];
         }
 
-        return view('wallet.index', compact('accounts'));
+        $publicKey = PaystackAPIKey::first()->public_key ?? '';
+
+        return view('wallet.index', compact('accounts','publicKey'));
 
     }
 

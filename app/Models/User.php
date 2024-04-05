@@ -8,6 +8,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Str;
+
 
 class User extends Authenticatable
 {
@@ -58,6 +60,27 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+
+    public static function generateReferralCode()
+    {
+        $referralCode = Str::random(8); // You can adjust the length as needed
+        while (User::where('referral_code', $referralCode)->exists()) {
+            $referralCode = Str::random(8);
+        }
+        return $referralCode;
+    }
+
+    public function fundingTransactions(): HasMany
+    {
+        return $this->hasMany(FundingTransaction::class);
+    }
+
+
+    public function referredUsers(): HasMany
+    {
+        return $this->hasMany(User::class, 'referred_by');
+    }
 
    
 }

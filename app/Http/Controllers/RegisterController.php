@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Models\BrevoAPIKey;
 use App\Models\Charges;
 use App\Models\ReservedAccount;
 use App\Models\User;
@@ -9,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Http;
 
 class RegisterController extends Controller
 {
@@ -36,7 +38,7 @@ class RegisterController extends Controller
             if ($request->input('bvn_nin_select') === 'bvn') {
                 // If 'bvn' is selected, add validation rule for 'bvn' field
                 $bvnValidation = $request->validate([
-                    'bvn' => ['required', 'string', 'regex:/^\d{11}$/'],
+                    'bvn' => ['nullable', 'string', 'regex:/^\d{11}$/'],
                 ]);
             
                 // Merge the validation rules with existing validatedData
@@ -44,7 +46,7 @@ class RegisterController extends Controller
             } elseif ($request->input('bvn_nin_select') === 'nin') {
                 // If 'nin' is selected, add validation rule for 'nin' field
                 $ninValidation = $request->validate([
-                    'nin' => ['required', 'string', 'regex:/^\d{11}$/'],
+                    'nin' => ['nullable', 'string', 'regex:/^\d{11}$/'],
                 ]);
             
                 // Merge the validation rules with existing validatedData
@@ -65,6 +67,24 @@ class RegisterController extends Controller
                 'username' => $username . $randomString,
                 'password' => Hash::make($validatedData['password']),
             ]);
+
+            $user = new User([
+                'name' => $validatedData['name'],
+                'phone' => $validatedData['phone'],
+                'email' => $validatedData['email'],
+                'referral_code' => User::generateReferralCode(),
+                'username' => $username . $randomString,
+                'password' => Hash::make($validatedData['password']),
+
+            ]);
+
+            $referralCode = $request->referral_code;
+            if ($referralCode) {
+                $referrer = User::where('referral_code', $referralCode)->first();
+                if ($referrer) {
+                    $user->referred_by = $referrer->id;
+                }
+            }
 
             // Get the Monnify access token
             $accessToken = $this->getAccessToken();
@@ -88,6 +108,8 @@ class RegisterController extends Controller
                 'user_id' => $user->id,
                 'balance' => $welcome_bonus->welcome_bonus,
             ]);
+
+            $this->sendWelcomeEmail($fullName, $validatedData['email']);
 
             DB::commit(); // Commit the transaction
             return response()->json(['message' => 'User account created successfully']);
@@ -208,4 +230,107 @@ class RegisterController extends Controller
 
         return $monnifyResponse->responseBody;
     }
+
+
+    private function sendWelcomeEmail($name, $email)
+    {
+
+        $apiKey = BrevoAPIKey::first()->api_key ?? '';
+
+        $endpoint = 'https://api.brevo.com/v3/smtp/email';
+
+        // Email data
+        $senderName = 'Wisehud AI';
+        $senderEmail = 'support@wisehud.com';
+        $recipientName = $name;
+        $recipientEmail = $email;
+        $subject = 'Welcome to Wisehud AI!';
+
+        $htmlContent = '<!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Welcome to Wisehud AI!</title>
+            <style>
+                /* Add your custom styles here */
+                body {
+                    font-family: Arial, sans-serif;
+                    background-color: #f7f7f7;
+                    margin: 0;
+                    padding: 0;
+                    line-height: 1.6;
+                }
+                .container {
+                    max-width: 600px;
+                    margin: 0 auto;
+                    padding: 20px;
+                    background-color: #fff;
+                    border-radius: 8px;
+                    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+                }
+                .logo img {
+                    max-width: 150px;
+                    height: auto;
+                }
+                .social-media {
+                    margin-top: 20px;
+                }
+                .social-media a {
+                    display: inline-block;
+                    margin-right: 10px;
+                }
+                .message {
+                    margin-top: 30px;
+                }
+                .message p {
+                    margin-bottom: 20px;
+                }
+            </style>
+        </head>
+        <body>
+            <div class="container">
+                <div class="logo">
+                    <img src="https://wisehud.com/logo.jpg" alt="Wisehud Logo">
+                </div>
+                <div class="social-media">
+                    <a href="https://facebook.com/wisehudai" target="_blank">Facebook</a>
+                    <a href="https://twitter.com/wisehudai" target="_blank">Twitter</a>
+                    <a href="https://instagram.com/wisehudai" target="_blank">Instagram</a>
+                </div>
+                <div class="message">
+                    <p>Hello ' . $recipientName . ',</p>
+                    <p>Welcome to Wisehud AI, where you can get amazing solutions to your problems and answers to your questions.</p>
+                    <p>Feel free to reach out to us on social media or reply to this email if you have any questions.</p>
+                    <p>Best regards,<br>Your Wisehud Team</p>
+                </div>
+            </div>
+        </body>
+        </html>';
+
+        // Prepare the data payload
+        $data = [
+            'sender' => [
+                'name' => $senderName,
+                'email' => $senderEmail,
+            ],
+            'to' => [
+                [
+                    'email' => $recipientEmail,
+                    'name' => $recipientName,
+                ],
+            ],
+            'subject' => $subject,
+            'htmlContent' => $htmlContent,
+        ];
+
+        // Send the HTTP request
+        $response = Http::withHeaders([
+            'accept' => 'application/json',
+            'api-key' => $apiKey,
+            'content-type' => 'application/json',
+        ])->post($endpoint, $data);       
+
+    }
+
 }

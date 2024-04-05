@@ -22,7 +22,7 @@
           <li><a href="{{ route('chat.index') }}"><i class="bi bi-chat"></i>Ask AI</a></li>
           <li><a href="{{ route('wallet.index') }}"><i class="bi bi-wallet"></i>Wallet</a></li>
           @php
-          $link = App\Models\Charges::select('whatsapp_group_link')->first();
+          $link = App\Models\Charges::select('whatsapp_number')->first();
         @endphp
           <li><a href="{{ $link->whatsapp_group_link }}"><i class="bi bi-whatsapp"></i>Join our Whatsapp Group</a></li>
           <li>

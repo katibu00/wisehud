@@ -8,6 +8,7 @@ use App\Http\Controllers\MonnifyController;
 use App\Http\Controllers\RegisterController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\UsersController;
+use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\WalletControler;
 use Illuminate\Support\Facades\Auth;
 
@@ -44,6 +45,11 @@ Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
+Route::get('/forgot-password', [ForgotPasswordController::class, 'showForgotPasswordForm'])->name('password.forgot');
+Route::post('/forgot-password', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.send.reset.link');
+
+Route::get('/reset-password/{token}', [ForgotPasswordController::class, 'showResetPasswordForm'])->name('password.reset');
+Route::post('/reset-password', [ForgotPasswordController::class, 'resetPassword'])->name('password.update');
 
 Route::group(['middleware' => ['auth', 'regular']], function () {
     Route::get('/user/home', [HomeController::class, 'regular'])->name('regular.home');
@@ -83,6 +89,17 @@ Route::group(['prefix' => 'settings', 'middleware' => ['auth', 'admin']], functi
 
     Route::get('/pop_up_notification', [SettingsController::class, 'popup'])->name('pop_up_notification');
     Route::post('/pop_up_notification', [SettingsController::class, 'savePopup']);
+
+
+    Route::get('/brevo_key', [SettingsController::class, 'brevoKeys'])->name('brevo_key');
+    Route::post('/brevo_key', [SettingsController::class, 'saveBrevo']);
+
+    Route::get('/paystack_key', [SettingsController::class, 'paystackKeys'])->name('paystack_key');
+    Route::post('/paystack_key', [SettingsController::class, 'savePaystack']);
+
+
+    Route::get('/marquee_notification', [SettingsController::class, 'marquee'])->name('marquee_notification');
+    Route::post('/marquee_notification', [SettingsController::class, 'saveMarquee'])->name('marquee_notification.save');
 
 
 });

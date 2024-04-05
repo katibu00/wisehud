@@ -10,6 +10,8 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <!-- Title -->
     <title> Wisehud AI - @yield('pageTitle')</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap" rel="stylesheet">
@@ -22,16 +24,16 @@
     <!-- CSS Libraries -->
     <link rel="stylesheet" href="/theme/css/bootstrap.min.css">
     <link rel="stylesheet" href="/theme/css/bootstrap-icons.css">
-    <link rel="stylesheet" href="/theme/css/tiny-slider.css">
+    {{-- <link rel="stylesheet" href="/theme/css/tiny-slider.css"> --}}
     <link rel="stylesheet" href="/theme/css/baguetteBox.min.css">
-    <link rel="stylesheet" href="/theme/css/rangeslider.css">
-    <link rel="stylesheet" href="/theme/css/vanilla-dataTables.min.css">
-    <link rel="stylesheet" href="/theme/css/apexcharts.css">
+    {{-- <link rel="stylesheet" href="/theme/css/rangeslider.css"> --}}
+    {{-- <link rel="stylesheet" href="/theme/css/vanilla-dataTables.min.css"> --}}
+    {{-- <link rel="stylesheet" href="/theme/css/apexcharts.css"> --}}
     <!-- Core Stylesheet -->
     <link rel="stylesheet" href="/theme/style.css">
     <!-- Web App Manifest -->
-    {{-- <link rel="manifest" href="/theme/manifest.json"> --}}
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />    @yield('css')
+    <link rel="manifest" href="/theme/manifest.json">
+    @yield('css')
   </head>
   <body>
     <!-- Preloader -->
@@ -78,15 +80,17 @@
     <script src="/theme/js/internet-status.js"></script>
     <script src="/theme/js/tiny-slider.js"></script>
     <script src="/theme/js/baguetteBox.min.js"></script>
-    <script src="/theme/js/countdown.js"></script>
+    {{-- <script src="/theme/js/countdown.js"></script> --}}
     <script src="/theme/js/rangeslider.min.js"></script>
-    <script src="/theme/js/vanilla-dataTables.min.js"></script>
+    {{-- <script src="/theme/js/vanilla-dataTables.min.js"></script> --}}
     <script src="/theme/js/index.js"></script>
     <script src="/theme/js/magic-grid.min.js"></script>
     <script src="/theme/js/dark-rtl.js"></script>
     <script src="/theme/js/active.js"></script>
     <!-- PWA -->
     <script src="/theme/js/pwa.js"></script>
-  
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    @yield('js')
   </body>
 </html>

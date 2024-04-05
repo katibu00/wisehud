@@ -4,406 +4,262 @@
 
     <div class="page-content-wrapper">
 
-        <!-- Tiny Slider One Wrapper -->
         <div class="pt-3"></div>
-        <div class="container dikrection-rtl">
-            <div class="card mb-3">
+
+        <div class="container direction-rtl">
+            <div class="card mb-3 text-center">
+                {{-- <div class="card-header bg-primary text-white">
+            <h4 class="my-0">User Balance</h4>
+          </div> --}}
                 <div class="card-body">
                     <div class="row g-3">
-
-                        <div class="col-4">
-
-                            <div class="feature-card mx-auto text-center">
-                              <a href="{{ route('chat.index') }}">
-                                <div class="card mx-auto bg-gray"><i class="fa-solid fa-comment-dots"></i></div>
-                                <p class="mb-0">Ask AI</p>
-                              </a>
-                            </div>
-                        </div>
-                        <div class="col-4">
-                            <div class="feature-card mx-auto text-center">
-                              <a href="https://play.google.com/store/apps/details?id=com.gigaplus.ng">
-                                <div class="card mx-auto bg-gray">
-
-                                    <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
-                                        xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                                        width="100%" viewBox="0 0 880 800" enable-background="new 0 0 880 800"
-                                        xml:space="preserve">
-                                        <path fill="#000000" opacity="1.000000" stroke="none"
-                                            d="
-M150.659302,505.579529 
-	C148.488251,505.017273 146.703445,504.607910 144.951706,504.087280 
-	C144.543213,503.965851 144.246948,503.466797 143.696060,502.951721 
-	C145.344437,501.067657 147.446793,501.908600 149.240097,501.852814 
-	C161.209869,501.480469 173.248550,502.863312 185.146713,500.775085 
-	C205.359177,497.227661 217.317581,483.592743 218.892563,463.226624 
-	C220.385895,443.916382 219.214462,424.594360 219.694580,405.285431 
-	C219.785294,401.637329 218.425323,400.249725 214.740463,400.277100 
-	C198.244812,400.399689 181.747360,400.403259 165.251602,400.294098 
-	C161.630722,400.270142 160.129776,401.536987 160.193802,405.234009 
-	C160.340897,413.729614 160.343857,422.231354 160.191010,430.726746 
-	C160.125092,434.391418 161.538666,435.835327 165.195190,435.711273 
-	C170.187881,435.541992 175.192825,435.769226 180.189835,435.678558 
-	C183.011032,435.627380 184.514496,436.372406 184.370209,439.627502 
-	C184.134293,444.949860 184.408127,450.293396 184.229462,455.620026 
-	C184.016449,461.970398 180.988419,465.525787 174.675934,466.410614 
-	C164.904861,467.780212 155.032715,467.497772 145.258957,466.705963 
-	C137.725388,466.095673 134.921417,462.183563 134.850189,453.485840 
-	C134.704208,435.657623 134.777481,417.827545 134.772156,399.998230 
-	C134.770355,393.999695 134.715836,387.999298 134.841919,382.003052 
-	C135.033936,372.871582 138.838715,368.976593 148.061157,368.850708 
-	C160.389297,368.682404 172.721268,368.780914 185.051575,368.788361 
-	C207.380203,368.801849 229.709930,368.953613 252.036545,368.752869 
-	C256.433838,368.713318 258.641174,370.275269 260.258362,374.190582 
-	C265.337799,386.488373 268.322693,399.158234 268.305847,412.515381 
-	C268.268188,442.342316 268.216736,472.169891 268.395630,501.995850 
-	C268.423615,506.659576 267.227905,508.392670 262.277130,508.361633 
-	C231.785095,508.170135 201.291122,508.235687 170.798019,508.311340 
-	C164.074768,508.328033 157.564224,507.115234 150.659302,505.579529 
-z" />
-                                        <path fill="#000000" opacity="1.000000" stroke="none"
-                                            d="
-M341.840210,467.159790 
-	C349.930573,475.148315 359.841766,473.806580 369.436890,473.505646 
-	C372.344788,473.414490 371.726318,470.678833 371.731720,468.798737 
-	C371.778717,452.471191 371.717133,436.143250 371.788147,419.815857 
-	C371.844238,406.921295 370.370728,408.805237 382.939209,408.635376 
-	C387.603180,408.572327 392.270691,408.729401 396.933350,408.631500 
-	C399.918213,408.568787 401.162811,409.875763 401.115692,412.806885 
-	C400.657593,441.277283 402.411011,469.790955 400.137665,498.211914 
-	C399.168182,510.332611 392.334259,519.636292 382.235931,526.344727 
-	C373.080475,532.426819 362.733032,534.847961 351.927673,535.128845 
-	C340.938873,535.414551 329.935608,535.097046 318.941650,535.254028 
-	C315.217743,535.307129 313.407288,534.304626 313.589203,530.195129 
-	C313.853729,524.220337 313.657074,518.225159 313.657074,512.530701 
-	C314.894592,510.934845 316.274811,511.481598 317.571533,511.466034 
-	C329.061371,511.328278 340.558929,511.371399 352.037933,510.934601 
-	C361.070404,510.590912 367.410614,505.728760 370.010773,497.321411 
-	C366.716217,497.321411 363.640625,497.272858 360.567017,497.329865 
-	C348.033264,497.562347 335.973083,495.830536 325.206451,488.794250 
-	C309.956940,478.828308 304.994751,464.151733 306.776398,446.852570 
-	C308.371582,431.363586 316.662659,420.322784 330.815430,413.736450 
-	C340.103027,409.414246 349.927460,408.284424 360.044067,408.601929 
-	C362.947571,408.693054 364.329407,409.710785 364.261414,412.727478 
-	C364.160034,417.223450 364.008606,421.739502 364.313202,426.217468 
-	C364.625427,430.806763 362.840485,432.565887 358.290009,432.299286 
-	C351.026672,431.873779 344.810333,434.276154 340.365448,440.228088 
-	C334.292755,448.359833 334.822662,458.393585 341.840210,467.159790 
-z" />
-                                        <path fill="#000000" opacity="1.000000" stroke="none"
-                                            d="
-M561.659241,391.999939 
-	C561.666077,380.836548 561.553162,370.170990 561.744019,359.510895 
-	C561.813416,355.639648 560.530823,354.144318 556.568542,354.261017 
-	C548.744080,354.491516 540.895874,354.619446 533.082336,354.255554 
-	C528.332642,354.034332 527.157593,355.813385 527.174866,360.268890 
-	C527.323547,398.589905 527.284363,436.911682 527.300171,475.233215 
-	C527.302734,481.527374 527.300537,487.821533 527.300537,493.933960 
-	C524.171265,495.209167 522.521179,493.501770 520.968872,492.176086 
-	C515.113220,487.175079 511.692444,480.844788 511.681122,473.042694 
-	C511.619690,430.722473 511.588165,388.402130 511.655640,346.081970 
-	C511.672211,335.696198 517.751831,329.802429 528.256897,329.762573 
-	C549.916687,329.680359 571.578979,329.531830 593.236511,329.761108 
-	C622.056824,330.066162 643.466064,354.634003 640.169861,383.271454 
-	C640.136047,383.564911 639.863831,383.830963 639.698608,384.109772 
-	C638.689636,384.485687 638.165833,383.897034 637.738159,383.125153 
-	C628.160095,365.837616 612.245850,358.558044 593.778809,355.388611 
-	C588.353516,354.457520 582.860962,354.252014 577.349243,354.304657 
-	C574.846619,354.328583 573.780640,355.092773 573.792725,357.776520 
-	C573.819763,363.767426 573.693665,369.768127 573.349121,375.748657 
-	C573.080750,380.406769 574.731750,382.118622 579.609924,382.106689 
-	C589.953552,382.081390 598.929443,385.446930 604.723328,394.748352 
-	C613.328979,408.563812 608.424255,434.167847 583.696106,436.203430 
-	C577.902771,436.680328 572.035828,436.189392 566.209045,436.359985 
-	C562.621399,436.465088 561.636597,434.751495 561.655945,431.488190 
-	C561.733093,418.492554 561.670471,405.496124 561.659241,391.999939 
-z" />
-                                        <path fill="#000000" opacity="1.000000" stroke="none"
-                                            d="
-M423.507568,416.386353 
-	C434.473877,409.697327 446.216064,408.209045 458.391235,408.627625 
-	C460.439575,408.698029 461.430817,409.467102 461.426422,411.602814 
-	C461.414520,417.420807 461.474976,423.239166 461.542389,429.056976 
-	C461.585815,432.805908 458.776154,432.270325 456.586975,432.195801 
-	C450.332001,431.982758 444.617249,433.396851 440.041443,437.790100 
-	C433.453796,444.115051 432.269989,451.840759 435.128815,460.247375 
-	C438.056458,468.856354 444.783661,472.747589 453.323242,473.588135 
-	C469.642151,475.194427 469.654755,475.063477 469.654907,458.771301 
-	C469.655060,443.785583 469.752655,428.798859 469.589600,413.814911 
-	C469.547913,409.983673 470.686401,408.420807 474.685760,408.582642 
-	C481.002686,408.838165 487.340393,408.762726 493.663635,408.603119 
-	C497.015961,408.518524 498.399658,409.614990 498.386108,413.166260 
-	C498.285156,439.640594 498.333740,466.115479 498.342041,492.590210 
-	C498.342804,495.038940 498.339966,497.386536 494.847229,497.291779 
-	C477.558502,496.822662 460.149017,498.935699 442.989166,496.212524 
-	C403.858551,490.002747 397.239197,454.098511 408.629120,432.003143 
-	C411.994995,425.473663 417.047882,420.500763 423.507568,416.386353 
-z" />
-                                        <path fill="#000000" opacity="1.000000" stroke="none"
-                                            d="
-M77.620796,366.999695 
-	C77.605797,351.509125 77.725098,336.516449 77.483299,321.529633 
-	C77.422897,317.786469 78.831299,316.993042 82.128639,316.997253 
-	C115.101921,317.039185 148.083267,316.650452 181.040390,317.803345 
-	C195.607513,318.312927 209.050415,323.219025 221.529984,330.709900 
-	C222.089035,331.045441 222.593826,331.502777 223.037933,331.982910 
-	C223.215042,332.174347 223.158646,332.581787 223.260620,333.213470 
-	C220.312134,334.507965 217.138962,333.990479 214.078934,334.006531 
-	C189.762283,334.134064 165.439560,333.898834 141.130478,334.375763 
-	C126.990021,334.653229 114.683792,339.721588 106.683189,352.177429 
-	C101.006859,361.014740 99.617630,371.214478 99.482254,381.386078 
-	C99.165283,405.200531 99.284416,429.022522 99.425034,452.840302 
-	C99.468880,460.266602 100.760147,467.615753 102.389709,475.152283 
-	C99.511276,475.474304 98.640579,473.305756 97.624931,471.920807 
-	C84.876175,454.536957 77.488136,435.309021 77.638199,413.471222 
-	C77.743507,398.148163 77.634727,382.823608 77.620796,366.999695 
-z" />
-                                        <path fill="#000000" opacity="1.000000" stroke="none"
-                                            d="
-M640.326111,472.000061 
-	C640.324890,479.324310 640.211975,486.151093 640.368225,492.971680 
-	C640.448303,496.466522 639.369019,498.197083 635.579346,498.181946 
-	C612.610474,498.090302 589.641113,498.103424 566.671875,498.128906 
-	C563.210632,498.132751 561.530273,496.898438 561.621765,493.122833 
-	C561.815308,485.138245 561.836914,477.140961 561.605835,469.158234 
-	C561.489807,465.147430 563.173523,463.990936 566.906616,463.929352 
-	C577.363831,463.756989 587.881958,464.681244 598.242676,462.397980 
-	C614.864563,458.734863 628.658630,450.947296 637.424133,435.738464 
-	C637.811096,435.067108 638.449646,434.540710 640.325928,434.082397 
-	C640.325928,446.554932 640.325928,459.027496 640.326111,472.000061 
-z" />
-                                        <path fill="#000000" opacity="1.000000" stroke="none"
-                                            d="
-M709.449280,475.728943 
-	C714.870728,478.813843 720.450806,478.009491 725.890808,477.916351 
-	C729.276733,477.858398 728.997131,475.081390 728.999146,472.741333 
-	C729.008911,461.090118 729.198547,449.434021 728.908569,437.790039 
-	C728.788818,432.983582 730.330750,431.141968 735.161316,431.597870 
-	C738.791260,431.940491 742.481140,431.758484 746.139709,431.651672 
-	C749.029236,431.567352 750.373718,432.615021 750.361816,435.689728 
-	C750.290283,454.165039 750.330994,472.640839 750.326782,491.116455 
-	C750.326294,493.206696 750.207275,495.332062 747.343323,495.301239 
-	C734.373657,495.161743 721.315796,496.493408 708.455200,494.645477 
-	C693.659607,492.519501 682.657532,485.422882 682.097778,462.898285 
-	C681.878662,454.082306 682.105591,445.255981 682.047913,436.434845 
-	C682.027039,433.235840 683.013977,431.473145 686.648193,431.618347 
-	C691.941284,431.829803 697.249146,431.672607 702.721924,431.672607 
-	C703.883972,436.682922 703.108704,441.330811 703.346863,445.919342 
-	C703.716736,453.044067 702.644653,460.201111 704.010254,467.314911 
-	C704.676636,470.786682 706.215759,473.536865 709.449280,475.728943 
-z" />
-                                        <path fill="#000000" opacity="1.000000" stroke="none"
-                                            d="
-M793.071655,448.989868 
-	C789.767578,449.146210 786.939209,449.208954 784.135681,449.506439 
-	C782.952637,449.631989 781.937195,450.460785 781.841370,451.790771 
-	C781.736206,453.252167 782.957642,453.729889 784.040771,454.142334 
-	C786.610352,455.120850 789.312500,454.563293 791.954346,454.718384 
-	C799.779724,455.177704 807.190247,456.723145 812.538330,463.144348 
-	C819.856140,471.930542 817.907654,484.250031 808.253052,490.406982 
-	C803.684814,493.320251 798.666199,495.140076 793.240723,495.245331 
-	C783.924194,495.426117 774.601074,495.249786 765.283630,495.402344 
-	C761.883057,495.458008 760.432312,494.257233 760.622009,490.758881 
-	C760.827576,486.968018 760.668579,483.157349 760.668579,479.072266 
-	C765.077148,477.956482 769.207275,477.830231 773.294373,478.295807 
-	C778.983276,478.943878 784.589478,478.220825 790.222412,477.811096 
-	C792.090515,477.675140 794.313171,477.387482 794.203979,475.031799 
-	C794.099487,472.775543 791.810059,472.454498 790.003967,472.412048 
-	C785.512024,472.306488 781.046570,472.197906 776.615173,471.268280 
-	C762.841797,468.378845 755.470947,455.201935 761.424866,443.347534 
-	C765.631958,434.971313 773.710022,432.370483 782.257446,431.819489 
-	C790.710327,431.274628 799.226196,431.769806 807.711731,431.637177 
-	C810.980652,431.586090 812.141907,433.015869 812.141846,436.111053 
-	C812.141479,451.290222 813.459351,448.723602 800.047729,448.978363 
-	C797.884949,449.019470 795.720825,448.988678 793.071655,448.989868 
-z" />
-                                        <path fill="#000000" opacity="1.000000" stroke="none"
-                                            d="
-M292.942291,408.606262 
-	C293.933228,408.607208 294.433136,408.605743 294.933014,408.608795 
-	C301.974335,408.651886 301.991547,408.651947 302.019012,415.937042 
-	C302.044128,422.602081 302.023773,429.267273 302.028351,435.932404 
-	C302.040955,454.261414 301.924438,472.592072 302.157257,490.918304 
-	C302.220306,495.880920 300.729248,497.779510 295.594513,497.426270 
-	C289.458282,497.004181 283.268768,497.230042 277.106537,497.364899 
-	C273.967285,497.433533 272.620453,496.347229 272.629883,493.054565 
-	C272.706207,466.394318 272.720490,439.733551 272.618225,413.073486 
-	C272.604218,409.429626 274.218262,408.504211 277.455688,408.589569 
-	C282.450867,408.721344 287.452393,408.612671 292.942291,408.606262 
-z" />
-                                        <path fill="#000000" opacity="1.000000" stroke="none"
-                                            d="
-M650.696045,411.030151 
-	C650.780212,398.813812 649.403198,399.898529 661.458923,399.855865 
-	C673.279236,399.814026 672.192017,399.167694 672.203125,410.702515 
-	C672.228394,436.853271 672.108948,463.004730 672.291443,489.154236 
-	C672.324402,493.870850 670.993103,495.539398 666.101135,495.485596 
-	C650.688293,495.316040 650.687134,495.493774 650.689209,479.983643 
-	C650.692261,457.164124 650.694092,434.344604 650.696045,411.030151 
-z" />
-                                        <path fill="#000000" opacity="1.000000" stroke="none"
-                                            d="
-M271.547546,386.960663 
-	C269.359894,376.581970 273.431366,368.886047 282.097046,366.452850 
-	C290.999695,363.953094 299.828430,368.047821 302.591370,375.958069 
-	C305.753571,385.011475 301.786804,394.482697 293.345367,397.351562 
-	C284.108276,400.490845 273.701538,396.565216 271.547546,386.960663 
-z" />
-                                    </svg>
-
-
-                                </div>
-                                <p class="mb-0">GigaPlus</p>
-                              </a>
-                            </div>
-                        </div>
-                        <div class="col-4">
-                            <div class="feature-card mx-auto text-center">
-                                <div class="card mx-auto bg-gray"><i class="fa-solid fa-clock-rotate-left"></i></div>
-                                <p class="mb-0">History</p>
-                            </div>
-                        </div>
-                        <div class="row g-3">
-                            <div class="col-4">
-                                <div class="feature-card mx-auto text-center">
-                                    <div class="card mx-auto bg-gray"><i class="fa-solid fa-money-check"></i></div>
-                                    <p class="mb-0">Balance</p>
+                        <div class="col-md-6">
+                            <div class="card bg-light mb-3">
+                                <div class="card-body">
+                                    <h5 class="card-title">
+                                        <i class="bi bi-wallet2 me-3"></i>Main Balance
+                                    </h5>
+                                    <p id="main-balance" class="card-text display-6">
+                                        ₦{{ auth()->user()->wallet ? number_format(auth()->user()->wallet->balance, 2) : 'N/A' }}
+                                    </p>
+                                    <!-- Add funds button -->
+                                    <a href="{{ route('wallet.index') }}" class="btn btn-primary btn-sm">Add Funds</a>
                                 </div>
                             </div>
-                            @php
-                              $link = App\Models\Charges::select('whatsapp_group_link')->first();
-                            @endphp
-                            <div class="col-4">
-                                <div class="feature-card mx-auto text-center">
-                                  <a href="{{ $link->whatsapp_group_link }}">
-                                    <div class="card mx-auto bg-gray"><i class="fa-solid fa-address-book"></i></div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container direction-rtl">
+            <div class="card mb-3">
+                <div class="card-body text-center">
+                    <div class="row g-3">
+                        <div class="col-4">
+                            <a href="" class="text-decoration-none">
+                                <div class="feature-card mx-auto">
+                                    <div class="card mx-auto bg-gray">
+                                        <i class="mx-auto bi bi-arrow-left-right me-3"></i>
+                                    </div>
+                                    <p class="mb-0">Transactions</p>
+                                </div>
+                            </a>
+                        </div>
+
+                        @php
+                            $number = App\Models\Charges::select('whatsapp_number')->first();
+                        @endphp
+                        <div class="col-4">
+                            <div class="feature-card mx-auto">
+                                <a href="https://wa.me/{{ $number->whatsapp_number }}?text=My%20name%20is" target="_blank"
+                                    rel="noopener noreferrer">
+                                    <div class="card mx-auto bg-gray">
+                                        <i class="mx-auto bi bi-whatsapp me-3"></i>
+                                    </div>
                                     <p class="mb-0">Contact Us</p>
-                                  </a>
-                                </div>
-                            </div>
-                            <div class="col-4">
-                                <div class="feature-card mx-auto text-center">
-                                    <a href="{{ route('logout') }}">
-                                        <div class="card mx-auto bg-gray"><i class="fa-solid fa-right-from-bracket"></i>
-                                        </div>
-                                        <p class="mb-0">Logout</p>
-                                    </a>
-                                </div>
+                                </a>
                             </div>
                         </div>
+                        <div class="col-4">
+                            <div class="feature-card mx-auto">
+                                <a href="{{ route('logout') }}"
+                                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                    <div class="card mx-auto bg-gray">
+                                        <i class="mx-auto bi bi-box-arrow-right me-3"></i>
+                                    </div>
+                                    <p class="mb-0">Logout</p>
+                                </a>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                    @csrf
+                                </form>
+                            </div>
+                        </div>
+                        <!-- New Menu Icons -->
+                        <div class="col-4">
+                            <div class="feature-card mx-auto">
+                                <a href="#">
+                                    <div class="card mx-auto bg-gray">
+                                        <i class="mx-auto bi bi-chat-left-dots me-3"></i>
+                                    </div>
+                                    <p class="mb-0">AI Chat</p>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="feature-card mx-auto">
+                                <a href="#">
+                                    <div class="card mx-auto bg-gray">
+                                        <i class="mx-auto bi bi-arrow-up-circle me-3"></i>
+                                    </div>
+                                    <p class="mb-0">Upgrade Plan</p>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="feature-card mx-auto">
+                                <a href="#">
+                                    <div class="card mx-auto bg-gray">
+                                        <i class="mx-auto bi bi-journal me-3"></i>
+                                    </div>
+                                    <p class="mb-0">Chat History</p>
+                                </a>
+                            </div>
+                        </div>
+                        
                     </div>
                 </div>
             </div>
-            {{-- <div class="pt-3"></div> --}}
-            <div class="container">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="standard-tab">
-                            <ul class="nav rounded-lg mb-2 p-2 shadow-sm" id="affanTabs1" role="tablist">
-                                @if (is_array($accounts) && count($accounts) > 0)
-                                    @foreach ($accounts as $key => $account)
-                                        <li class="nav-item" role="presentation">
-                                            <button class="btn {{ $loop->first ? 'active' : '' }}"
-                                                id="key{{ $key }}-tab" data-bs-toggle="tab"
-                                                data-bs-target="#key{{ $key }}" type="button" role="tab"
-                                                aria-controls="key{{ $key }}"
-                                                aria-selected="{{ $loop->first ? 'true' : 'false' }}">{{ $account['bankName'] }}</button>
-                                        </li>
-                                    @endforeach
-                                @endif
-                            </ul>
-                            <div class="tab-content rounded-lg p-3 shadow-sm" id="affanTabs1Content">
-                                @if (is_array($accounts) && count($accounts) > 0)
-                                    @foreach ($accounts as $key => $account)
-                                        <div class="tab-pane fade {{ $loop->first ? 'show active' : '' }}"
-                                            id="key{{ $key }}" role="tabpanel"
-                                            aria-labelledby="key{{ $key }}-tab">
-                                            <div class="d-flex align-items-center">
-                                                <h6 class="mr-2"><span class="font-weight-bold">Acc. No.:</span></h6>
-                                                <p class="mb-0">{{ $account['accountNumber'] }}</p>
-                                                <button class="btn btn-link btn-sm ml-2"
-                                                    onclick="copyToClipboard('{{ $account['accountNumber'] }}')">
-                                                    <i class="fas fa-copy"></i>
-                                                </button>
-                                                <p class="mb-0 ml-3">
-                                                    <span class="font-weight-bold">Charges:</span>
-                                                   {{ $charges->funding_charges_description }}
-                                                </p>
-                                            </div>
-                                            <p class="mb-0"><span class="font-weight-bold">Acc. Name:</span>
-                                                {{ $account['accountName'] }}</p>
-                                        </div>
-                                    @endforeach
-                                @endif
-                            </div>
-                        </div>
-                    </div>
-                    
-                </div>
-            </div>
-            <div class="pt-3"></div>
-
-            <div class="container">
-                <div class="card ca">
-                    <div class="card-body d-flex align-items-center direction-rtl">
-                        <div class="card-img-wrap"><i class="fa-solid fa-wallet fa-3x"></i></div>
-                        <div class="card-content">
-                            <h5 class="mb-3">Your Wallet Balance:
-                                &#8358;{{ auth()->user()->wallet ? number_format(auth()->user()->wallet->balance, 2) : 'N/A' }}
-                            </h5><a class="btn btn-info btn-round" href="#">Add Funds</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-
-            <div class="pb-3"></div>
         </div>
 
 
 
-    @endsection
+        <div class="container direction-rtl">
+            <div class="card mb-3">
+                <div class="card-body text-center">
+                    <div class="row g-3">
+                        @if ($marqueeNotification)
+                            <marquee class="marquee-notification" behavior="scroll" direction="left">
+                                {{ $marqueeNotification->message }}
+                            </marquee>
+                        @endif
+                    </div>
+                </div>
+            </div>
+        </div>
 
-    @section('js')
 
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.min.css">
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.all.min.js"></script>
-
-        @if ($popUp)
-            <script>
-                $(document).ready(function() {
-                    Swal.fire({
-                        icon: 'info',
-                        title: 'Notification',
-                        html: '{{ $popUp->body }}',
-                        confirmButtonText: 'Close',
-                        allowOutsideClick: false,
-                    });
-                });
-            </script>
-        @endif
-
-        <script>
-            function copyToClipboard(text) {
-                const input = document.createElement('input');
-                input.setAttribute('value', text);
-                document.body.appendChild(input);
-                input.select();
-                document.execCommand('copy');
-                document.body.removeChild(input);
-
-                // Show a success message using SweetAlert
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Copied!',
-                    text: 'Account number copied to clipboard.',
-                    timer: 2000, // Show the alert for 2 seconds
-                    timerProgressBar: true,
-                });
+        <style>
+            .marquee-notification {
+                font-size: 1.2em;
+                font-weight: bold;
+                color: #d63384;
+                padding: 10px;
+                /* background-color: #e9ecef;  */
+                border-radius: 8px;
             }
-        </script>
+
+            .bonus-container {
+                background-color: #f0f0f0;
+                border-radius: 5px;
+                padding: 10px;
+                font-weight: bold;
+            }
+        </style>
 
 
-    @endsection
+
+        <div class="container">
+            <div class="card bg-primary rounded-0 rounded-top">
+                <div class="card-body text-center py-3">
+                    <h6 class="mb-0 text-white line-height-1">Fund Your Wallet</h6>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+
+
+                    <div class="standard-tab">
+                        <ul class="nav rounded-lg mb-2 p-2 shadow-sm" id="affanTabs1" role="tablist">
+                            @foreach ($accounts as $index => $account)
+                                <li class="nav-item" role="presentation">
+                                    <button class="btn {{ $index === 0 ? 'active' : '' }}"
+                                        id="account-tab-{{ $index }}" data-bs-toggle="tab"
+                                        data-bs-target="#account-{{ $index }}" type="button" role="tab"
+                                        aria-controls="account-{{ $index }}"
+                                        aria-selected="{{ $index === 0 ? 'true' : 'false' }}">{{ $account['bankName'] }}</button>
+                                </li>
+                            @endforeach
+                        </ul>
+                        <div class="tab-content rounded-lg p-3 shadow-sm" id="affanTabs1Content">
+                            @foreach ($accounts as $index => $account)
+                                <div class="tab-pane fade {{ $index === 0 ? 'show active' : '' }}"
+                                    id="account-{{ $index }}" role="tabpanel"
+                                    aria-labelledby="account-tab-{{ $index }}">
+                                    <h6>{{ $account['bankName'] }}</h6>
+                                    <p class="mb-0">Account Number: {{ $account['accountNumber'] }}</p>
+                                    <p class="mb-0">Account Name: {{ $account['accountName'] }}</p>
+                                    <p class="mb-0">Charges: 1%</p>
+                                    <button class="btn btn-sm btn-primary copy-btn"
+                                        data-clipboard-text="{{ $account['accountNumber'] }}" type="button"><i
+                                            class="bi bi-clipboard"></i> Copy Account Number</button>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+       
+    </div>
+
+
+    <div class="pb-3"></div>
+
+    <div class="container">
+        <div class="card bg-primary mb-3 bg-img" style="background-image: url('img/core-img/1.png')">
+            <div class="card-body direction-rtl p-5">
+                <h2 class="text-white">Referral Program</h2>
+                <p class="mb-4 text-white">Share your referral link with your contacts and get NGN 200 for every referral!
+                </p>
+                <div class="mb-3">
+                    <strong class="text-white">Your Referral Link:</strong>
+                    <input type="text" id="referralLink" class="form-control"
+                        value="{{ route('register') }}?referral_code={{ auth()->user()->referral_code }}" readonly>
+                </div>
+                <div class="mb-3">
+                    <button class="btn btn-success" onclick="shareOnWhatsApp()">Share on WhatsApp</button>
+                    <button class="btn btn-info" onclick="copyLink()">Copy Link</button>
+                </div>
+                <div>
+                    <strong class="text-white">Total Users Referred:</strong>
+                    <span class="text-white">{{ auth()->user()->referredUsers()->count() }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="pb-3"></div>
+
+    </div>
+@endsection
+
+@section('js')
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+
+    <script>
+        function shareOnWhatsApp() {
+
+            var leadingMessage = "Welcome to Wisehud AI, your gateway to next-level conversational AI solutions! Elevate your customer interactions, streamline operations, and stay ahead of the curve with our cutting-edge AI chat assistants. Don't miss out on the future of communication – sign up now using my referral link and unlock the power of intelligent conversations!\n\n";
+            var referralLink = document.getElementById('referralLink').value;
+            var shareMessage = leadingMessage + referralLink;
+
+
+            var shareURL = 'https://api.whatsapp.com/send?text=' + encodeURIComponent(shareMessage);
+
+            window.open(shareURL, '_blank');
+        }
+
+
+        function copyLink() {
+
+            var referralLinkInput = document.getElementById('referralLink');
+            referralLinkInput.select();
+            referralLinkInput.setSelectionRange(0, 99999);
+
+            document.execCommand('copy');
+
+            referralLinkInput.setSelectionRange(0, 0);
+
+            toastr.success('Referral link copied to clipboard!');
+        }
+    </script>
+
+
+@endsection
