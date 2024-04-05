@@ -39,7 +39,7 @@ class HomeController extends Controller
     {
         // Get the required statistics
         $totalUsers = User::count();
-        $totalWalletBalance = Wallet::sum('main_balance');
+        $totalWalletBalance = Wallet::sum('balance');
         $totalFundings = MonnifyTransfer::sum('amount_paid');
 
         // Calculate the number of new users (registered within the last 30 days)
