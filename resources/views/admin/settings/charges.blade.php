@@ -55,7 +55,7 @@
                                     value="{{ $charges->funding_charges_amount ?? '' }}">
                             </div>
                             <div class="mb-3">
-                                <label for="whatsapp_group_link" class="form-label">WhatsApp Group Link</label>
+                                <label for="whatsapp_group_link" class="form-label">WhatsApp Contact Number</label>
                                 <input type="text" class="form-control" id="whatsapp_group_link" name="whatsapp_group_link"
                                     value="{{ $charges->whatsapp_group_link ?? '' }}">
                             </div>
