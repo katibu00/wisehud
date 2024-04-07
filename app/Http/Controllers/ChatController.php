@@ -13,6 +13,7 @@ class ChatController extends Controller
     public function submit(Request $request)
     {
         $prompt = $request->input('prompt');
+        $conversationHistory = $request->input('conversationHistory', []);
 
 
         $user = auth()->user();
@@ -32,9 +33,7 @@ class ChatController extends Controller
 
         $payload = [
             'model' => 'gpt-3.5-turbo',
-            'messages' => [
-                ['role' => 'user', 'content' => $prompt],
-            ],
+            'messages' => array_merge($conversationHistory, [['role' => 'user', 'content' => $prompt]]),
             'temperature' => 0.7,
         ];
 

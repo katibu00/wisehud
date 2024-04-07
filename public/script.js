@@ -15,19 +15,6 @@ function loader(element) {
     }, 300);
 }
 
-// function typeText(element, text) {
-//     let index = 0;
-
-//     let interval = setInterval(() => {
-//         if (index < text.length) {
-//             element.innerHTML += text.charAt(index);
-//             index++;
-//         } else {
-//             clearInterval(interval);
-//         }
-//     }, 20);
-// }
-
 function typeText(element, text) {
     if (!text || typeof text !== "string") {
         // Handle the case when 'text' is not defined or not a string
@@ -129,7 +116,6 @@ const handleSubmit = async (e) => {
     sendIcon.style.display = "none";
     spinnerIcon.style.display = "block";
 
-
     // users chatstripe
     chatContainer.innerHTML += chatStripe(false, data.get("prompt"));
 
@@ -144,18 +130,22 @@ const handleSubmit = async (e) => {
     const messageDiv = document.getElementById(uniqueId);
     loader(messageDiv);
 
-
     const scrollDistance = chatContainer.scrollHeight - chatContainer.clientHeight;
-
 
     const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
     const headers = new Headers();
     headers.append("X-CSRF-TOKEN", csrfToken);
 
+    // Fetch conversation history from storage
+    const conversationHistory = JSON.parse(localStorage.getItem("conversationHistory")) || [];
+
+    // Add current message to conversation history
+    conversationHistory.push({ role: "user", content: data.get("prompt") });
+
     fetch("/api/submit", {
         method: "POST",
         headers: headers,
-        body: data,
+        body: JSON.stringify({ prompt: data.get("prompt"), conversationHistory }), // Pass conversation history to the API
     })
         .then((response) => response.json())
         .then((data) => {
@@ -178,10 +168,12 @@ const handleSubmit = async (e) => {
             submitButton.disabled = false;
             sendIcon.style.display = "block";
             spinnerIcon.style.display = "none";
-            
+
             chatContainer.scrollTop = scrollDistance;
 
-
+            // Update conversation history with bot's response
+            conversationHistory.push({ role: "bot", content: data.completion });
+            localStorage.setItem("conversationHistory", JSON.stringify(conversationHistory));
         })
         .catch((error) => {
             console.error(error);
@@ -192,6 +184,9 @@ const handleSubmit = async (e) => {
             });
         });
 };
+
+
+
 
 form.addEventListener("submit", handleSubmit);
 
