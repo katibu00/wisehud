@@ -36,7 +36,23 @@
     <div class="card image-gallery-card direction-rtl">
       
         <div id="chat_container">
+            @foreach($conversations as $conversation)
+            <!-- Display AI response -->
+            <div class="chat ai">
+                <div class="profile">
+                    <img src="/assets/bot.svg" alt="bot" />
+                </div>
+                <div class="message" id="{{ $conversation->id }}">{{ $conversation->bot_response }}</div>
+            </div>
 
+            <!-- Display user prompt -->
+            <div class="chat user-prompt">
+                <div class="profile">
+                    <img src="/assets/user.svg" alt="user" />
+                </div>
+                <div class="message" id="{{ $conversation->id }}">{{ $conversation->user_prompt }}</div>
+            </div>
+            @endforeach
         </div>
     
         <form>
@@ -45,7 +61,7 @@
               <img src="/assets/send.svg" id="send-icon" />
               <div class="spinner" id="spinner-icon"></div>
           </button>
-          <input type="hidden" name="session_id" id="session_id" value="{{ $session_id }}">
+          <input type="hidden" name="session_id" id="session_id" value="{{ $sessionId }}">
         </form>
 
     </div>

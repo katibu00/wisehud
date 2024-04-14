@@ -73,6 +73,11 @@ Route::post('/api/submit',  [ChatController::class, 'submit'])->middleware('auth
 Route::get('/chat', [ChatController::class, 'index'])->name('chat.index')->middleware('auth');
 Route::get('/wallet', [WalletControler::class, 'index'])->name('wallet.index')->middleware('auth');
 
+Route::get('/chat-history', [ChatController::class, 'chatHistory'])->name('chat.history');
+Route::get('/chat/{sessionId}', [ChatController::class, 'chatDetails'])->name('chat.details');
+
+
+
 
 
 Route::group(['prefix' => 'settings', 'middleware' => ['auth', 'admin']], function () {

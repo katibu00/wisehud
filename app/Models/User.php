@@ -82,5 +82,11 @@ class User extends Authenticatable
         return $this->hasMany(User::class, 'referred_by');
     }
 
+
+    public function chats()
+    {
+        return $this->hasMany(Chat::class);
+    }
+
    
 }

@@ -15,6 +15,8 @@ function loader(element) {
     }, 300);
 }
 
+
+
 function typeText(element, text) {
     if (!text || typeof text !== "string") {
         // Handle the case when 'text' is not defined or not a string
@@ -105,6 +107,12 @@ const handleSubmit = async (e) => {
 
     const data = new FormData(form);
 
+    // Get the session_id value from the hidden input field
+    const session_id = document.getElementById("session_id").value;
+
+    // Append the session_id to the FormData object
+    data.append("session_id", session_id);
+
     const textarea = form.querySelector("textarea");
     const submitButton = form.querySelector("#submit-button");
     const sendIcon = form.querySelector("#send-icon");
@@ -136,56 +144,44 @@ const handleSubmit = async (e) => {
     const headers = new Headers();
     headers.append("X-CSRF-TOKEN", csrfToken);
 
-    // Fetch conversation history from storage
-    const conversationHistory = JSON.parse(localStorage.getItem("conversationHistory")) || [];
-
-    // Add current message to conversation history
-    conversationHistory.push({ role: "user", content: data.get("prompt") });
-
     fetch("/api/submit", {
         method: "POST",
         headers: headers,
-        body: JSON.stringify({ prompt: data.get("prompt"), conversationHistory }), // Pass conversation history to the API
+        body: data,
     })
-        .then((response) => response.json())
-        .then((data) => {
-            console.log(data.completion);
+    .then((response) => response.json())
+    .then((data) => {
+        console.log(data.completion);
 
-            clearInterval(loadInterval);
-            messageDiv.innerHTML = " ";
+        clearInterval(loadInterval);
+        messageDiv.innerHTML = " ";
 
-            if (data.completion) {
-                typeText(messageDiv, data.completion);
-            } else {
-                Swal.fire({
-                    icon: "error",
-                    title: "Insufficient Funds",
-                    text: "Please fund your wallet to continue.",
-                });
-            }
-
-            textarea.disabled = false;
-            submitButton.disabled = false;
-            sendIcon.style.display = "block";
-            spinnerIcon.style.display = "none";
-
-            chatContainer.scrollTop = scrollDistance;
-
-            // Update conversation history with bot's response
-            conversationHistory.push({ role: "bot", content: data.completion });
-            localStorage.setItem("conversationHistory", JSON.stringify(conversationHistory));
-        })
-        .catch((error) => {
-            console.error(error);
+        if (data.completion) {
+            typeText(messageDiv, data.completion);
+        } else {
             Swal.fire({
                 icon: "error",
-                title: "Oops...",
-                text: "An error occurred. Please try again.",
+                title: "Insufficient Funds",
+                text: "Please fund your wallet to continue.",
             });
+        }
+
+        textarea.disabled = false;
+        submitButton.disabled = false;
+        sendIcon.style.display = "block";
+        spinnerIcon.style.display = "none";
+
+        chatContainer.scrollTop = scrollDistance;
+    })
+    .catch((error) => {
+        console.error(error);
+        Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "An error occurred. Please try again.",
         });
+    });
 };
-
-
 
 
 form.addEventListener("submit", handleSubmit);
