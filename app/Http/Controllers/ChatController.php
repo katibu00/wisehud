@@ -13,70 +13,6 @@ use Illuminate\Support\Str;
 class ChatController extends Controller
 {
 
-    // public function submit(Request $request)
-    // {
-    //     $prompt = $request->input('prompt');
-
-    //     $user = auth()->user();
-    //     $walletBalance = $user->wallet->balance;
-
-    //     $charges = DB::table('charges')->first();
-    //     $chargesPerChat = $charges->charges_per_chat;
-
-    //     if ($walletBalance < $chargesPerChat) {
-    //         return response()->json(['error' => 'Insufficient balance. Please fund your wallet.']);
-    //     }
-
-    //     $openAIKey = OpenAIKey::first();
-    //     $apiKey = $openAIKey ? $openAIKey->key : '';
-
-    //     $url = 'https://api.openai.com/v1/chat/completions';
-
-    //     $payload = [
-    //         'model' => 'gpt-3.5-turbo',
-    //         'messages' => [
-    //             ['role' => 'user', 'content' => $prompt],
-    //         ],
-    //         'temperature' => 0.7,
-    //     ];
-
-    //     $jsonPayload = json_encode($payload);
-
-    //     $ch = curl_init($url);
-    //     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    //     curl_setopt($ch, CURLOPT_HTTPHEADER, [
-    //         'Content-Type: application/json',
-    //         'Authorization: Bearer ' . $apiKey,
-    //     ]);
-    //     curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonPayload);
-
-    //     $response = curl_exec($ch);
-
-    //     if (curl_errno($ch)) {
-    //         $error = curl_error($ch);
-
-    //         return response()->json(['error' => $error], 500);
-    //     }
-
-    //     curl_close($ch);
-
-    //     $result = json_decode($response, true);
-
-    //     if (isset($result['error'])) {
-    //         $errorMessage = $result['error']['code'];
-    //         return response()->json(['completion' => $errorMessage]);
-    //     }
-
-    //     $user = User::find($user->id);
-    //     $userWallet = $user->wallet;
-    //     $userWallet->balance -= $chargesPerChat;
-    //     $userWallet->save();
-
-    //     $completion = $result['choices'][0]['message']['content'];
-
-    //     return response()->json(['completion' => $completion]);
-    // }
-
     public function index()
     {
         $session_id = Str::uuid();
@@ -84,7 +20,6 @@ class ChatController extends Controller
         // Pass the session ID to the view
         return view('chat.index', ['session_id' => $session_id]);
     }
-
 
     public function submit(Request $request)
     {
@@ -107,14 +42,13 @@ class ChatController extends Controller
 
         $url = 'https://api.openai.com/v1/chat/completions';
 
-
-       $conversationHistory = Conversation::whereHas('chat', function ($query) use ($session_id) {
+        $conversationHistory = Conversation::whereHas('chat', function ($query) use ($session_id) {
             $query->where('session_id', $session_id);
         })
-        ->orderBy('id', 'desc')
-        ->limit(20)
-        ->get();
-        
+            ->orderBy('id', 'desc')
+            ->limit(20)
+            ->get();
+
         $messages = [];
         foreach ($conversationHistory as $conversation) {
             // Add user prompt to messages
@@ -130,7 +64,7 @@ class ChatController extends Controller
             'model' => 'gpt-3.5-turbo',
             'messages' => $messages,
             'temperature' => 0.7,
-            
+
         ];
 
         $payload = [
@@ -175,7 +109,6 @@ class ChatController extends Controller
 
         $completion = $result['choices'][0]['message']['content'];
 
-
         $words = str_word_count($prompt, 1);
 
         if (count($words) > 10) {
@@ -196,7 +129,7 @@ class ChatController extends Controller
             $chat->session_id = $session_id;
             $chat->save();
         }
-    
+
         // Create a new conversation
         $conversation = new Conversation();
         $conversation->chat_id = $chat->id;
@@ -204,45 +137,76 @@ class ChatController extends Controller
         $conversation->bot_response = $result['choices'][0]['message']['content'];
         $conversation->save();
 
-
-
         return response()->json(['completion' => $completion]);
     }
-
 
     public function chatHistory()
     {
         $user = auth()->user();
 
-        $chats = Chat::where('user_id', $user->id)->get();
+        $chats = Chat::select('chats.id', 'chats.title', 'chats.session_id', DB::raw('MAX(conversations.created_at) as latest_conversation_created_at'))
+            ->leftJoin('conversations', 'chats.id', '=', 'conversations.chat_id')
+            ->where('chats.user_id', $user->id)
+            ->groupBy('chats.id', 'chats.title', 'chats.session_id')
+            ->orderByDesc('latest_conversation_created_at')
+            ->get();
+
+        $chats->transform(function ($chat) {
+            $chat->latest_conversation_created_at = \Carbon\Carbon::parse($chat->latest_conversation_created_at);
+            return $chat;
+        });
 
         return view('chat.history', compact('chats'));
     }
 
-
-
     public function chatDetails($sessionId)
     {
-        // Fetch the chat details using the session ID
         $chat = Chat::where('session_id', $sessionId)->first();
 
-        // If the chat does not exist, return an error message or redirect as needed
         if (!$chat) {
             return response()->json(['error' => 'Chat not found'], 404);
-            // Alternatively, you can redirect to another page:
-            // return redirect()->route('chat.history')->with('error', 'Chat not found');
         }
 
-        // Fetch the conversations related to this chat
         $conversations = Conversation::where('chat_id', $chat->id)->get();
+        return view('chat.details', compact('chat', 'conversations', 'sessionId'));
+    }
 
-        // Pass the chat details and conversations to the view
-        return view('chat.details', compact('chat', 'conversations','sessionId'));
+    public function deleteChat($sessionId)
+    {
+        $chat = Chat::where('session_id', $sessionId)->first();
+
+        if ($chat) {
+            $chat->delete();
+            return response()->json(['success' => 'Chat deleted successfully'], 200);
+        }
+
+        return response()->json(['error' => 'Chat not found'], 404);
     }
 
 
 
+    public function renameChat(Request $request, $sessionId)
+{
+    // Validate the request data
+    $request->validate([
+        'title' => 'required|string|max:255',
+    ]);
 
-    
+    // Find the chat by session ID
+    $chat = Chat::where('session_id', $sessionId)->first();
+
+    // If the chat doesn't exist, return an error response
+    if (!$chat) {
+        return response()->json(['error' => 'Chat not found'], 404);
+    }
+
+    // Update the chat title
+    $chat->title = $request->input('title');
+    $chat->save();
+
+    // Return a success response
+    return response()->json(['message' => 'Chat title updated successfully']);
+}
+
 
 }

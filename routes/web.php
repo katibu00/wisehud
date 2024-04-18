@@ -75,6 +75,9 @@ Route::get('/wallet', [WalletControler::class, 'index'])->name('wallet.index')->
 
 Route::get('/chat-history', [ChatController::class, 'chatHistory'])->name('chat.history');
 Route::get('/chat/{sessionId}', [ChatController::class, 'chatDetails'])->name('chat.details');
+Route::delete('/chat/delete/{sessionId}', [ChatController::class, 'deleteChat'])->name('chat.delete');
+Route::put('/chat/rename/{sessionId}', [ChatController::class, 'renameChat'])->name('chat.rename');
+
 
 
 

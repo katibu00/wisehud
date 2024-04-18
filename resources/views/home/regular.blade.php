@@ -38,7 +38,7 @@
                 <div class="card-body text-center">
                     <div class="row g-3">
                         <div class="col-4">
-                            <a href="" class="text-decoration-none">
+                            <a href="#" class="text-decoration-none">
                                 <div class="feature-card mx-auto">
                                     <div class="card mx-auto bg-gray">
                                         <i class="mx-auto bi bi-arrow-left-right me-3"></i>
@@ -79,7 +79,7 @@
                         <!-- New Menu Icons -->
                         <div class="col-4">
                             <div class="feature-card mx-auto">
-                                <a href="#">
+                                <a href="{{ route('chat.index') }}">
                                     <div class="card mx-auto bg-gray">
                                         <i class="mx-auto bi bi-chat-left-dots me-3"></i>
                                     </div>
@@ -99,7 +99,7 @@
                         </div>
                         <div class="col-4">
                             <div class="feature-card mx-auto">
-                                <a href="#">
+                                <a href="{{ route('chat.history') }}">
                                     <div class="card mx-auto bg-gray">
                                         <i class="mx-auto bi bi-journal me-3"></i>
                                     </div>

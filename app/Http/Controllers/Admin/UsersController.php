@@ -20,6 +20,7 @@ class UsersController extends Controller
 
         return view('admin.users.regular.index', compact('users'));
     }
+
     public function admins()
     {
         $users = User::where('user_type', 'admin')

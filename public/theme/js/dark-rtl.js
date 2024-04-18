@@ -5,6 +5,15 @@
   var toggleSwitch = document.getElementById("darkSwitch");
   var currentTheme = localStorage.getItem("theme");
 
+  // Function to set dark mode
+  function setDarkMode() {
+    document.documentElement.setAttribute("data-theme", "dark");
+    localStorage.setItem("theme", "dark");
+    if (toggleSwitch) {
+      toggleSwitch.checked = true;
+    }
+  }
+
   if (currentTheme) {
     document.documentElement.setAttribute("data-theme", currentTheme);
     if (currentTheme === "dark") {
@@ -12,6 +21,9 @@
         toggleSwitch.checked = true;
       }
     }
+  } else {
+    // Set dark mode by default if no theme is stored
+    setDarkMode();
   }
 
   function switchTheme(e) {

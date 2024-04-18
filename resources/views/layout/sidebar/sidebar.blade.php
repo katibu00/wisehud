@@ -8,7 +8,7 @@
         <div class="sidenav-profile bg-gradient">
           <div class="sidenav-style1"></div>
           <!-- User Thumbnail -->
-          <div class="user-profile"><img src="img/bg-img/2.jpg" alt=""></div>
+          <div class="user-profile"><img src="/default.png" alt=""></div>
           <!-- User Info -->
           <div class="user-info">
             <h6 class="user-name mb-0">{{ auth()->user()->name }}</h6><span>Regular</span>
@@ -26,7 +26,7 @@
         @endphp
           <li><a href="{{ $link->whatsapp_group_link }}"><i class="bi bi-whatsapp"></i>Join our Whatsapp Group</a></li>
           <li>
-            <div class="night-mode-nav"><i class="bi bi-moon"></i>Night Mode
+            <div class="night-mode-nav"><i class="bi bi-moon"></i>Dark Mode
               <div class="form-check form-switch">
                 <input class="form-check-input form-check-success" id="darkSwitch" type="checkbox">
               </div>

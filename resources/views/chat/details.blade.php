@@ -37,20 +37,20 @@
       
         <div id="chat_container">
             @foreach($conversations as $conversation)
-            <!-- Display AI response -->
-            <div class="chat ai">
-                <div class="profile">
-                    <img src="/assets/bot.svg" alt="bot" />
-                </div>
-                <div class="message" id="{{ $conversation->id }}">{{ $conversation->bot_response }}</div>
-            </div>
-
             <!-- Display user prompt -->
             <div class="chat user-prompt">
                 <div class="profile">
                     <img src="/assets/user.svg" alt="user" />
                 </div>
                 <div class="message" id="{{ $conversation->id }}">{{ $conversation->user_prompt }}</div>
+            </div>
+
+            <!-- Display AI response -->
+            <div class="chat ai">
+                <div class="profile">
+                    <img src="/assets/bot.svg" alt="bot" />
+                </div>
+                <div class="message" id="{{ $conversation->id }}">{{ $conversation->bot_response }}</div>
             </div>
             @endforeach
         </div>
